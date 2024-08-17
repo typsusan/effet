@@ -1,40 +1,35 @@
-
 const Face = {
-
-    init:function (obj){
+    init: function (obj) {
         let el = document.getElementById(obj.el);
-
-        if (!el){
-            throw new Error('No "'+obj.el+'" element found');
+        if (!el) {
+            throw new Error('No "' + obj.el + '" element found');
         }
 
-        el.style.position = 'relative'
-
         let video = document.createElement('video');
-        video.setAttribute("id","visio-login-video");
-        video.style.setProperty('display','none');
-        video.style.zIndex = 1
+        video.setAttribute("id", "visio-login-video");
+        video.style.setProperty('display', 'none');
+        video.style.zIndex = 1;
         el.appendChild(video);
 
         let canvas = document.createElement('canvas');
-        canvas.setAttribute('id','visio-login-canvas')
-        canvas.setAttribute('width',obj.width)
-        canvas.setAttribute('height',obj.height)
-        canvas.style.zIndex = 1
-        el.appendChild(canvas)
+        canvas.setAttribute('id', 'visio-login-canvas');
 
-        let div = document.createElement('div');
-        div.setAttribute('id','visio-login-div')
-        div.style.width = '100%';
-        div.style.height = '100%'
-        div.style.zIndex = 2;
-        div.style.position = 'absolute'
-        div.style.left = '50%';
-        div.style.top = '50%'
-        div.style.transform = 'translate(-50%, -50%)'
-        el.appendChild(div)
+        // Get the dimensions of the element
+        const rect = el.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        // Set the canvas size
+        canvas.width = width;
+        canvas.height = height;
+
+        // Optional: if you need to set the CSS width and height for other purposes
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        canvas.style.zIndex = 1;
+        el.appendChild(canvas);
     }
+};
 
-}
-
-export { Face }
+export { Face };

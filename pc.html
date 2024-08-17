@@ -11,8 +11,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             VisioLogin.face.init({
                 el: 'myface',
-                width: 640,
-                height: 480,
                 blur: 8,
                 dataRange: [1, 1.5, 2.1],
                 face: {
@@ -20,6 +18,11 @@
                     refineLandmarks: true,
                     minDetectionConfidence: 0.5,
                     minTrackingConfidence: 0.5
+                },
+                threshold:{
+                    lips:0.05,
+                    eye:0.011,
+                    headShake:0.01,
                 },
                 faceStyle: {
                     faceColor: {
@@ -60,6 +63,19 @@
             });
         });
     </script>
+    <style>
+        #myface{
+            width: 90%;
+            height: 900px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+            border-radius: 50%;
+            overflow: hidden;
+
+        }
+    </style>
 </head>
 <body>
 <!-- 用于渲染人脸识别的容器 -->

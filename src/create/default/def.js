@@ -23,4 +23,48 @@ export default (obj = {})=>{
             }
         }
     }
+
+    if (!obj.face){
+        obj.face = {
+            maxNumFaces: 1,
+            refineLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        }
+    }else {
+
+        if (typeof obj.face.maxNumFaces !== 'number'){
+            obj.face.maxNumFaces = 1
+        }
+
+        if (typeof obj.face.minDetectionConfidence !== 'number'){
+            obj.face.minDetectionConfidence = 0.5
+        }
+
+        if (typeof obj.face.minTrackingConfidence !== 'number'){
+            obj.face.minTrackingConfidence = 0.5
+        }
+
+        if (typeof obj.face.refineLandmarks !== 'boolean'){
+            obj.face.refineLandmarks = true
+        }
+    }
+
+    if (!obj.threshold){
+        obj.threshold = {
+            lips:0.05,
+            eye:0.011,
+            headShake:0.01,
+        }
+    }else {
+        if (typeof obj.threshold.lips !== 'number'){
+            obj.threshold.lips = 0.05
+        }
+        if (typeof obj.threshold.eye !== 'number'){
+            obj.threshold.eye = 0.05
+        }
+        if (typeof obj.threshold.headShake !== 'number'){
+            obj.threshold.headShake = 0.05
+        }
+    }
 }
