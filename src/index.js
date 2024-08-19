@@ -1,7 +1,6 @@
 import { Face } from "./create/dom/face.js";
 import {start,restart} from "./create/camera/camera.js";
 import def from './create/default/def.js'
-import './css/visioLoginDiv.css'
 
 const face = {
     init: function (obj) {

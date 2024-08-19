@@ -1,8 +1,0 @@
-.visio-login-glass-effect {
-    background: rgba(255, 255, 255, 0.2); /* 半透明的白色背景 */
-    border-radius: 10px; /* 圆角 */
-    backdrop-filter: blur(10px); /* 背景模糊效果 */
-    -webkit-backdrop-filter: blur(10px); /* 兼容Safari */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* 半透明的边框 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
-}
