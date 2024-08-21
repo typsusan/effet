@@ -3,6 +3,9 @@ import { FaceMesh } from '../../util/faceMesh.js';
 import { Camera } from '../../util/cameraUtils.js'
 import appObject from "../default/appObject";
 import faceAction from "../action/faceAction";
+import imageUtils from "../../util/imageUtils";
+import { generateKey } from "../../util/getKey";
+import {FACE_TYPE} from "../../enum";
 
 var appData = {
     mediaRecorder: null,
@@ -21,6 +24,7 @@ var appData = {
     wholeProcessState:false,
     currentText:'',
 };
+
 let callBackObj = null;
 let startObj = null;
 let currentObj = null;
@@ -78,7 +82,6 @@ async function startFaceMesh(obj) {
             return `/src/resources/${file}`;
         },
     });
-    callBackResult(obj,'请眨眨眼',4)
     faceMesh.setOptions(obj.face);
     currentObj = obj
     faceMesh.onResults(onResults);
@@ -99,7 +102,7 @@ function onResults(results){
     faceAction(appData,results,currentObj,callBackResult,stopRecording,startRecording)
 }
 
-function callBackResult(obj, message,step, base64Array = [], video = null) {
+function callBackResult(obj, message,step, base64Array = [], video = null,key = '') {
     if (!obj || typeof obj.callBack !== 'function') {
         console.error('Invalid callback object or function:', obj);
         return;
@@ -114,7 +117,8 @@ function callBackResult(obj, message,step, base64Array = [], video = null) {
         progress_message: message,
         step:step,
         base64Array: base64Array,
-        video: video
+        video: video,
+        secretKey:key,
     };
     obj.callBack(callBackObj);
 }
@@ -132,25 +136,41 @@ function startRecording() {
     }
 }
 
-function stopRecording(obj) {
-    console.log(obj)
-    console.log(appData.mediaRecorder)
-    appData.canvasElement.style.filter = `blur(${obj.blur}px)`
-    if (appData.mediaRecorder && appData.mediaRecorder.state !== "inactive") {
-        appData.mediaRecorder.stop();
-        appData.mediaRecorder.onstop = async () => {
-            const blob = new Blob(appData.recordedChunks, {
-                type: "video/mp4"
+
+function stopRecording(obj,base64Data) {
+
+    if (obj.type === FACE_TYPE.LOGIN){
+        appData.canvasElement.style.filter = `blur(${obj.blur}px)`;
+        if (appData.mediaRecorder && appData.mediaRecorder.state !== "inactive") {
+            return new Promise((resolve) => {
+                appData.mediaRecorder.stop();
+                appData.mediaRecorder.onstop = async () => {
+                    const blob = new Blob(appData.recordedChunks, { type: "video/mp4" });
+                    const key = generateKey();
+                    const images = await captureFramesFromVideoBlob(blob, obj.dataRange);
+                    const resultsImages = await Promise.all(
+                        images.map(image => imageUtils(image, key))
+                    );
+                    appData.currentImages = resultsImages;
+                    callBackResult(obj, 'success', 10, resultsImages, faceBase64(blob), key);
+                    appData.wholeProcessState = false;
+                    resolve(resultsImages); // 当异步操作完成时，Promise 得到解决
+                };
             });
-
-            const images = await captureFramesFromVideoBlob(blob, obj.dataRange);
-            appData.currentImages = images;
-            callBackResult(obj,'success',10,images,faceBase64(blob))
-            appData.wholeProcessState = false
-        };
+        } else {
+            // 如果没有进行录制，直接返回一个立即解决的 Promise
+            return Promise.resolve([]);
+        }
+    }else if (obj.type === FACE_TYPE.CLOCK_IN){
+        const key = generateKey();
+        const img = imageUtils(base64Data,key)
+        let resultsImages = []
+        resultsImages.push(img)
+        appData.currentImages = resultsImages;
+        callBackResult(obj, 'success', 10, resultsImages, null, key);
     }
-}
 
+}
 
 
 async function captureFramesFromVideoBlob(blob, times) {
@@ -158,14 +178,10 @@ async function captureFramesFromVideoBlob(blob, times) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     const images = [];
-
     video.src = URL.createObjectURL(blob);
-
     await new Promise(resolve => video.addEventListener('loadeddata', resolve, { once: true }));
-
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-
     for (let time of times) {
         await new Promise(resolve => {
             video.currentTime = time;

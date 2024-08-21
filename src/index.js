@@ -1,6 +1,7 @@
-import { Face } from "./create/dom/face.js";
-import {start,restart} from "./create/camera/camera.js";
+import { faceElements } from "./create/dom/createFaceElements.js";
+import {start,restart} from "./create/croe";
 import def from './create/default/def.js'
+import {FACE_TYPE} from "./enum";
 
 const face = {
     init: function (obj) {
@@ -11,8 +12,8 @@ const face = {
             throw new Error("Element not provided. Please pass a valid DOM element to initialize VisioLogin.");
         }
         window.onload = function() {
-            def(obj);
-            Face.init(obj);
+            def(obj,FACE_TYPE);
+            faceElements.init(obj);
             start(obj);
         };
     },
@@ -21,4 +22,4 @@ const face = {
     }
 }
 
-export { face } ;
+export { face,FACE_TYPE } ;

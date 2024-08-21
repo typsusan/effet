@@ -1,4 +1,4 @@
-const Face = {
+const faceElements = {
     init: function (obj) {
         let el = document.getElementById(obj.el);
         if (!el) {
@@ -32,4 +32,4 @@ const Face = {
     }
 };
 
-export { Face };
+export { faceElements };

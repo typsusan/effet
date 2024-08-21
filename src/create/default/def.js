@@ -1,7 +1,9 @@
-export default (obj = {})=>{
-    obj.width = obj.width || 640;
-    obj.height = obj.height || 480;
-    obj.blur = obj.blur || 8;
+export default (obj = {},FACE_TYPE = {})=>{
+
+    if (typeof obj.blur !== 'number'){
+        obj.blur = 8;
+    }
+
     if (!obj.faceStyle) {
         obj.faceStyle = {};
         obj.faceStyle.faceColor = {
@@ -9,6 +11,11 @@ export default (obj = {})=>{
             line: 1
         };
     } else {
+
+        if (typeof obj.faceStyle !== 'object'){
+            throw Error('"faceStyle" is not a valid object');
+        }
+
         if (!obj.faceStyle.faceColor) {
             obj.faceStyle.faceColor = {
                 color: '#2cc1dc',
@@ -32,6 +39,10 @@ export default (obj = {})=>{
             minTrackingConfidence: 0.5
         }
     }else {
+
+        if (typeof obj.face !== 'object'){
+            throw Error('"face" is not a valid object');
+        }
 
         if (typeof obj.face.maxNumFaces !== 'number'){
             obj.face.maxNumFaces = 1
@@ -57,6 +68,10 @@ export default (obj = {})=>{
             headShake:0.01,
         }
     }else {
+
+        if (typeof obj.threshold !== 'object'){
+            throw Error('"threshold" is not a valid object');
+        }
         if (typeof obj.threshold.lips !== 'number'){
             obj.threshold.lips = 0.05
         }
@@ -66,5 +81,28 @@ export default (obj = {})=>{
         if (typeof obj.threshold.headShake !== 'number'){
             obj.threshold.headShake = 0.05
         }
+    }
+    if (!obj.type){
+        obj.type = FACE_TYPE.LOGIN
+    }else {
+        if (!Object.values(FACE_TYPE).includes(obj.type)){
+            obj.type = FACE_TYPE.LOGIN
+        }
+    }
+
+    if (typeof obj.drawFace !== 'boolean'){
+        obj.drawFace = true
+    }
+
+    if (typeof obj.punchDistance !== 'number'){
+        obj.punchDistance = 30
+    }
+
+    if (typeof obj.punchDefaultColor !== 'string'){
+        obj.punchDefaultColor = '#A9A9A9'
+    }
+
+    if (typeof obj.punchSuccessColor !== 'string'){
+        obj.punchSuccessColor = '#13ce66'
     }
 }
