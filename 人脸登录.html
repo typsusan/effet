@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>VisioLogin Example</title>
     <!-- 引入打包后的 JavaScript 文件 -->
-    <script src="VisioLogin/index.js"></script>
+    <script src="effet/index.js"></script>
     <script>
         // 人脸登录，人脸打卡，睡眠检测
         document.addEventListener("DOMContentLoaded", function() {
-            VisioLogin.face.init({
+            effet.init({
                 el: 'myface',
                 blur: 8,
                 dataRange: [1, 1.5, 2.1],
@@ -19,7 +19,7 @@
                     minTrackingConfidence: 0.5
                 },
                 //drawFace:true,
-                type:VisioLogin.FACE_TYPE.LOGIN,
+                type:effet.FACE_TYPE.LOGIN,
                 threshold:{
                     lips:0.05,
                     eye:0.011,

@@ -7,8 +7,8 @@ module.exports = {
     },
     output: {
         filename: 'index.js',
-        path: path.resolve(__dirname, 'VisioLogin'),
-        library: 'VisioLogin',
+        path: path.resolve(__dirname, 'effet'),
+        library: 'effet',
         libraryTarget: 'var',
         globalObject: 'this',
     },
@@ -46,7 +46,7 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, 'src/resources'),
-                    to: path.resolve(__dirname, 'VisioLogin/src/resources')
+                    to: path.resolve(__dirname, 'effet/src/resources')
                 }
             ],
         }),
