@@ -2,7 +2,7 @@
  * 检测登录操作，如：眨眨眼，摇摇头，张张嘴，具体动作在当前逻辑里面调整
  * Detect login operations, such as blinking, shaking your head, and opening your mouth. The specific actions are adjusted in the current logic
  */
-import distance from "../../../util/distance";
+import {distance} from "../../../util/distanceUtils";
 import faceColor from "../../../color/faceColor";
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
 export default (appData,results,currentObj,callBackResult,stopRecording)=>{

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VisioLogin Example</title>
+    <!-- 引入打包后的 JavaScript 文件 -->
+    <script src="effet/index.js"></script>
+    <script>
+        // 人脸登录，人脸打卡，睡眠检测
+        document.addEventListener("DOMContentLoaded", function() {
+            effet.init({
+                el: 'myface',
+                blur: 8,
+                dataRange: [1, 1.5, 2.1],
+                face: {
+                    maxNumFaces: 1,
+                    refineLandmarks: true,
+                    minDetectionConfidence: 0.5,
+                    minTrackingConfidence: 0.5
+                },
+                drawFace:false,
+                punchDistance:20,
+                punchDefaultColor:'#A9A9A9',
+                punchSuccessColor:'#13ce66',
+                type:effet.FACE_TYPE.SLEEP,
+                sleepEarThreshold:0.2,
+                sleepTime:2,
+                threshold:{
+                    lips:0.05,
+                    eye:0.011,
+                    headShake:0.01,
+                },
+                // action:(appData,results,currentObj,callBackResult, stopRecording,startRecording)=>{
+                //     const landmarks = results.multiFaceLandmarks[0];
+                //     // 获取面部关键点
+                //     const upperLipBottom = landmarks[13];
+                //     const lowerLipTop = landmarks[14];
+                //     const leftEyeTop = landmarks[159];
+                //     const leftEyeBottom = landmarks[145];
+                //     const rightEyeTop = landmarks[386];
+                //     const rightEyeBottom = landmarks[374];
+                //     const noseTip = landmarks[1]; // 鼻尖的标记点
+                //     result += noseTip.y;
+                //     if (result >= 200){
+                //         stopRecording(currentObj)
+                //     }
+                //     console.log(result)
+                // },
+                faceStyle: {
+                    faceColor: {
+                        color:'#2cc1dc',
+                        line:1
+                    },
+                    // rightEye:{
+                    //     color:'#297ae9',
+                    //     line:2,
+                    // },
+                    // rightEyebrow:{
+                    //
+                    // },
+                    // rightIris:{
+                    //     color: 'red',
+                    //     line:1
+                    // },
+                    // leftEye:{
+                    //
+                    // },
+                    // leftEyebrow:{
+                    //
+                    // },
+                    // leftIris:{
+                    //
+                    // },
+                    // oval:{
+                    //
+                    // },
+                    // lips:{
+                    //
+                    // }
+
+                },
+                callBack: (data) => {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+    <style>
+        #myface{
+            width: 100%;
+            height: 600px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+            overflow: hidden;
+            border: 1px red solid;
+        }
+    </style>
+</head>
+<body>
+<!-- 用于渲染人脸识别的容器 -->
+<div id="myface"></div>
+
+<button onclick="restartFace()">重新检测</button>
+
+<script>
+
+    function restartFace(){
+        effet.restart();
+    }
+
+</script>
+</body>
+</html>

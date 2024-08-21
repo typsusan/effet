@@ -6,6 +6,7 @@ import faceAction from "../action/faceAction";
 import imageUtils from "../../util/imageUtils";
 import { generateKey } from "../../util/getKey";
 import {FACE_TYPE} from "../../enum";
+import getImageReturnUtils from "../../util/getImageReturnUtils";
 
 var appData = {
     mediaRecorder: null,
@@ -137,7 +138,7 @@ function startRecording() {
 }
 
 
-function stopRecording(obj,base64Data) {
+function stopRecording(obj) {
 
     if (obj.type === FACE_TYPE.LOGIN){
         appData.canvasElement.style.filter = `blur(${obj.blur}px)`;
@@ -161,13 +162,8 @@ function stopRecording(obj,base64Data) {
             // 如果没有进行录制，直接返回一个立即解决的 Promise
             return Promise.resolve([]);
         }
-    }else if (obj.type === FACE_TYPE.CLOCK_IN){
-        const key = generateKey();
-        const img = imageUtils(base64Data,key)
-        let resultsImages = []
-        resultsImages.push(img)
-        appData.currentImages = resultsImages;
-        callBackResult(obj, 'success', 10, resultsImages, null, key);
+    }else if (obj.type === FACE_TYPE.CLOCK_IN || obj.type === FACE_TYPE.SLEEP){
+        getImageReturnUtils(appData,obj,callBackResult)
     }
 
 }

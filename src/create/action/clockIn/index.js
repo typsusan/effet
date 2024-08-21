@@ -3,8 +3,6 @@ let checkInTimer = null;
 let isCheckingIn = false;
 
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
-    const canvasElement = document.querySelector('canvas');
-    const canvasCtx = canvasElement.getContext('2d');
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
     results.multiFaceLandmarks.forEach((landmarks) => {
         const meetsCriteria = checkIfMeetsCriteria(landmarks, currentObj);
@@ -15,7 +13,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
         }
 
         // 绘制人脸框框
-        drawFaceBox(canvasCtx, landmarks, meetsCriteria,currentObj);
+        drawFaceBox(appData.canvasCtx, landmarks, meetsCriteria,currentObj);
 
         if (meetsCriteria && !isCheckingIn) {
             if (!checkInTimer) {
@@ -23,11 +21,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
                     // 触发打卡接口
                     callBackResult(currentObj,'打卡成功',4);
                     isCheckingIn = true;
-
-                    // 开始调用后端接口，开始请求，拿到当前base64数据
-                    const base64Data = canvasElement.toDataURL('image/png');
-                    stopRecording(currentObj,base64Data)
-
+                    stopRecording(currentObj)
                     // 设置2秒后重置isCheckingIn
                     setTimeout(() => {
                         isCheckingIn = false;

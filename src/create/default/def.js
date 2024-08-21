@@ -105,4 +105,12 @@ export default (obj = {},FACE_TYPE = {})=>{
     if (typeof obj.punchSuccessColor !== 'string'){
         obj.punchSuccessColor = '#13ce66'
     }
+
+    if (typeof obj.sleepEarThreshold !== 'number'){
+        obj.sleepEarThreshold = 0.2
+    }
+
+    if (typeof obj.sleepTime !== 'number'){
+        obj.sleepTime = 2
+    }
 }
