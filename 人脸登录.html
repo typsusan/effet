@@ -7,6 +7,7 @@
     <script src="effet/index.js"></script>
     <script>
         // 人脸登录，人脸打卡，睡眠检测
+        let result = 0;
         document.addEventListener("DOMContentLoaded", function() {
             effet.init({
                 el: 'myface',
@@ -25,6 +26,9 @@
                     eye:0.011,
                     headShake:0.01,
                 },
+                // before:()=>{
+                //
+                // },
                 // action:(appData,results,currentObj,callBackResult, stopRecording,startRecording)=>{
                 //     const landmarks = results.multiFaceLandmarks[0];
                 //     // 获取面部关键点

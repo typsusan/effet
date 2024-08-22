@@ -7,6 +7,7 @@ import imageUtils from "../../util/imageUtils";
 import { generateKey } from "../../util/getKey";
 import {FACE_TYPE} from "../../enum";
 import getImageReturnUtils from "../../util/getImageReturnUtils";
+import faceBefore from "../before/faceBefore";
 
 var appData = {
     mediaRecorder: null,
@@ -75,7 +76,6 @@ async function initVideoAndCanvas(obj) {
     }
 }
 
-
 async function startFaceMesh(obj) {
     callBackResult(obj,'人脸开始检测',3)
     const faceMesh = new FaceMesh({
@@ -85,6 +85,7 @@ async function startFaceMesh(obj) {
     });
     faceMesh.setOptions(obj.face);
     currentObj = obj
+    faceBefore(appData,currentObj,callBackResult,stopRecording,startRecording)
     faceMesh.onResults(onResults);
     const camera = new Camera(appData.videoElement, {
         onFrame: async () => {

@@ -7,10 +7,17 @@ module.exports = {
     },
     output: {
         filename: 'index.js',
+        chunkFilename: '[name].[contenthash].js', // 使用 contenthash 避免命名冲突
         path: path.resolve(__dirname, 'effet'),
         library: 'effet',
         libraryTarget: 'var',
         globalObject: 'this',
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            name: 'common',
+        },
     },
     experiments: {
         asyncWebAssembly: true,

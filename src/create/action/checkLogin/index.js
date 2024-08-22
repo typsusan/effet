@@ -6,7 +6,7 @@ import {distance} from "../../../util/distanceUtils";
 import faceColor from "../../../color/faceColor";
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
 export default (appData,results,currentObj,callBackResult,stopRecording)=>{
-    callBackResult(currentObj,'请眨眨眼',4)
+
     const landmarks = results.multiFaceLandmarks[0];
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
     // 获取面部关键点

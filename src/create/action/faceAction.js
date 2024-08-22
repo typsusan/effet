@@ -3,6 +3,7 @@
  * 'Face Action' collection entry
  */
 import faceColor from "../../color/faceColor";
+import isEmptyFunctionUtil from "../../util/isEmptyFunctionUtil";
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
     appData.canvasCtx.save();
     appData.canvasCtx.clearRect(0, 0, appData.canvasElement.width, appData.canvasElement.height);
@@ -13,12 +14,15 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
             startRecording();
         }
         if (currentObj.action){
-            if (typeof currentObj.action){
+            if (typeof currentObj.action === 'function'){
                 faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
+                isEmptyFunctionUtil(currentObj.action,'action')
                 currentObj.action(appData,results,currentObj,callBackResult, stopRecording,startRecording)
+            }else {
+                throw Error("'action' is not a valid function")
             }
         }else {
-            import(`./${currentObj.type}`)
+            import(/* webpackChunkName: "[request]" */ `./${currentObj.type}`)
                 .then(module => {
                     const actionFunction = module.default;
                     actionFunction(appData, results, currentObj, callBackResult, stopRecording);
