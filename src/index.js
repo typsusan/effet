@@ -3,7 +3,6 @@ import {start,restart} from "./create/croe";
 import def from './create/default/def.js'
 import {FACE_TYPE} from "./enum";
 
-
 export function init(obj){
     if (!obj) {
         throw new Error("Element not provided. Please pass a valid DOM element to initialize VisioLogin.");
@@ -19,3 +18,9 @@ export function init(obj){
 }
 
 export { restart,FACE_TYPE };
+
+export default {
+    init,
+    restart,
+    FACE_TYPE
+};

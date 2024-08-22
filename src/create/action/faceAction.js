@@ -4,6 +4,10 @@
  */
 import faceColor from "../../color/faceColor";
 import isEmptyFunctionUtil from "../../util/isEmptyFunctionUtil";
+
+// 使用 require.context 动态加载模块
+const actionModules = require.context('./', true, /\.js$/);
+
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
     appData.canvasCtx.save();
     appData.canvasCtx.clearRect(0, 0, appData.canvasElement.width, appData.canvasElement.height);
@@ -17,19 +21,19 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
             if (typeof currentObj.action === 'function'){
                 faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
                 isEmptyFunctionUtil(currentObj.action,'action')
-                currentObj.action(appData,results,currentObj,callBackResult, stopRecording,startRecording)
+                currentObj.action(appData,results,currentObj,callBackResult, stopRecording, startRecording)
             }else {
                 throw Error("'action' is not a valid function")
             }
         }else {
-            import(/* webpackChunkName: "[request]" */ `./${currentObj.type}`)
-                .then(module => {
-                    const actionFunction = module.default;
-                    actionFunction(appData, results, currentObj, callBackResult, stopRecording);
-                })
-                .catch(error => {
-                    console.error(`Failed to load module for type: ${currentObj.type}`, error);
-                });
+            // 动态加载模块
+            const actionModule = actionModules(`./${currentObj.type}.js`);
+            if (actionModule) {
+                const actionFunction = actionModule.default;
+                actionFunction(appData, results, currentObj, callBackResult, stopRecording);
+            } else {
+                console.error(`无法找到模块：${currentObj.type}`);
+            }
         }
     } else {
         callBackResult(currentObj, '未检测到人脸...', -2);
@@ -43,4 +47,3 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
     }
     appData.canvasCtx.restore();
 }
-

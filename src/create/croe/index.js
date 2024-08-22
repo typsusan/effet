@@ -80,7 +80,7 @@ async function startFaceMesh(obj) {
     callBackResult(obj,'人脸开始检测',3)
     const faceMesh = new FaceMesh({
         locateFile: file => {
-            return `/src/resources/${file}`;
+            return `./${file}`;
         },
     });
     faceMesh.setOptions(obj.face);

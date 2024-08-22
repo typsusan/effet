@@ -38,7 +38,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
     });
 
     function checkIfMeetsCriteria(landmarks, currentObj) {
-        const canvasWidth = canvasElement.width;
+        const canvasWidth = appData.canvasElement.width;
         const leftCheek = landmarks[234];
         const rightCheek = landmarks[454];
         const headWidth = Math.abs(rightCheek.x - leftCheek.x) * canvasWidth;
@@ -52,10 +52,10 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
         const chin = landmarks[152];
         const forehead = landmarks[10];
 
-        const x = leftCheek.x * canvasElement.width;
-        const y = forehead.y * canvasElement.height;
-        const width = (rightCheek.x - leftCheek.x) * canvasElement.width;
-        const height = (chin.y - forehead.y) * canvasElement.height;
+        const x = leftCheek.x *  appData.canvasElement.width;
+        const y = forehead.y *  appData.canvasElement.height;
+        const width = (rightCheek.x - leftCheek.x) * appData.canvasElement.width;
+        const height = (chin.y - forehead.y) * appData.canvasElement.height;
 
         // 设置框框颜色
         ctx.strokeStyle = isHighlighted ? currentObj.punchSuccessColor : currentObj.punchDefaultColor; // 高光颜色为金色，默认颜色为灰色
