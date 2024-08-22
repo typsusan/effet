@@ -27,7 +27,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
             }
         }else {
             // 动态加载模块
-            const actionModule = actionModules(`./${currentObj.type}.js`);
+            const actionModule = actionModules(`./${currentObj.type}/index.js`);
             if (actionModule) {
                 const actionFunction = actionModule.default;
                 actionFunction(appData, results, currentObj, callBackResult, stopRecording);

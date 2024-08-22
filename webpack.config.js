@@ -8,6 +8,7 @@ module.exports = {
         filename: 'index.js',
         path: path.resolve(__dirname, 'effet'),
         library: 'effet',
+        publicPath: '/effet/',
         libraryTarget: 'umd',
         globalObject: 'this',
     },

@@ -13,7 +13,8 @@ export default (appData, currentObj, callBackResult, stopRecording, startRecordi
         }
     } else {
         // 动态加载模块
-        const actionModule = actionModules(`./${currentObj.type}.js`);
+        console.log(`路径：./${currentObj.type}/index.js`)
+        const actionModule = actionModules(`./${currentObj.type}/index.js`);
         if (actionModule) {
             const actionFunction = actionModule.default;
             actionFunction(appData, currentObj, callBackResult, stopRecording, startRecording);

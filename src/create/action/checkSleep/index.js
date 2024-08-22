@@ -3,6 +3,7 @@ let sleepStartTime = null; // 记录闭眼开始时间
 let wakeStartTime = null; // 记录睁眼开始时间
 
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
+
     results.multiFaceLandmarks.forEach((landmarks, index) => {
         // 获取双眼的关键点索引
         const leftEyeIndexes = [362, 385, 387, 263, 373, 380];
@@ -39,10 +40,10 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
                 if (wakeElapsedTime >= 500) { // 设置一个500毫秒的阈值
                     // 如果睁眼持续超过阈值，重置sleepStartTime
                     sleepStartTime = null;
+                    appData.currentText = ''
                 }
             }
         }
-        console.log(sleepStartTime);
     });
 };
 
