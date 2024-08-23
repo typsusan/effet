@@ -1,5 +1,4 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: {
         index: './src/index.js',
@@ -8,7 +7,6 @@ module.exports = {
         filename: 'index.js',
         path: path.resolve(__dirname, 'effet'),
         library: 'effet',
-        publicPath: '/effet/',
         libraryTarget: 'umd',
         globalObject: 'this',
     },
@@ -47,36 +45,5 @@ module.exports = {
             },
         ],
     },
-    plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, 'src/face_mesh.binarypb'),
-                    to: path.resolve(__dirname, 'effet'),
-                    noErrorOnMissing: true
-                },
-                {
-                    from: path.resolve(__dirname, 'src/face_mesh_solution_packed_assets.data'),
-                    to: path.resolve(__dirname, 'effet'),
-                    noErrorOnMissing: true
-                },
-                {
-                    from: path.resolve(__dirname, 'src/face_mesh_solution_packed_assets_loader.js'),
-                    to: path.resolve(__dirname, 'effet'),
-                    noErrorOnMissing: true
-                },
-                {
-                    from: path.resolve(__dirname, 'src/face_mesh_solution_simd_wasm_bin.js'),
-                    to: path.resolve(__dirname, 'effet'),
-                    noErrorOnMissing: true
-                },
-                {
-                    from: path.resolve(__dirname, 'src/face_mesh_solution_simd_wasm_bin.wasm'),
-                    to: path.resolve(__dirname, 'effet'),
-                    noErrorOnMissing: true
-                },
-            ],
-        }),
-    ],
     mode: 'development',
 };
