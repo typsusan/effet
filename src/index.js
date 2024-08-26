@@ -6,10 +6,10 @@ import { cacheAllFiles } from "./create/db/db";
 
 export function init(obj) {
     if (!obj) {
-        throw new Error("Element not provided. Please pass a valid DOM element to initialize VisioLogin.");
+        throw new Error("Element not provided. Please pass a valid DOM element to initialize effet.");
     }
     if (!obj.el) {
-        throw new Error("Element not provided. Please pass a valid DOM element to initialize VisioLogin.");
+        throw new Error("Element not provided. Please pass a valid DOM element to initialize effet.");
     }
 
     window.onload = function() {

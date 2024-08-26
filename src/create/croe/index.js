@@ -25,6 +25,7 @@ var appData = {
     noseXChanges: [],  // 记录鼻尖X坐标的变化
     wholeProcessState:false,
     currentText:'',
+    parentElement:null,
 };
 
 let callBackObj = null;
@@ -147,6 +148,7 @@ function callBackResult(obj, message,step, base64Array = [], video = null,key = 
         videoElement: appData.videoElement,
         canvasElement: appData.canvasElement,
         progress_message: message,
+        parentElement:appData.parentElement,
         step:step,
         base64Array: base64Array,
         video: video,

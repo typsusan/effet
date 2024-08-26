@@ -1,9 +1,24 @@
 const faceElements = {
     init: function (obj) {
-        let el = document.getElementById(obj.el);
-        if (!el) {
-            throw new Error('No "' + obj.el + '" element found');
+        let el;
+        if (typeof obj.el === 'string') {
+            let selector = obj.el.replace(/^#|^\./, '');
+            el = document.querySelector(`#${selector}, .${selector}`);
+            if (!el) {
+                el = document.getElementById(selector);
+            }
+            if (!el) {
+                el = document.getElementsByClassName(selector)[0];
+            }
+        } else if (obj.el instanceof HTMLElement) {
+            el = obj.el;
         }
+
+        if (!el) {
+            throw new Error(`No element found for "${obj.el}"`);
+        }
+
+        obj.parentElement = el
 
         let video = document.createElement('video');
         video.setAttribute("id", "visio-login-video");
