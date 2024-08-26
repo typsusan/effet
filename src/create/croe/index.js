@@ -194,6 +194,7 @@ function stopRecording(obj) {
                         appData.wholeProcessState = false;
                         resolve(resultsImages);
                     }else {
+                        appData.wholeProcessState = false;
                         getImageReturnUtils(appData,obj,callBackResult)
                     }
                 };
