@@ -76,17 +76,47 @@ async function initVideoAndCanvas(obj) {
     }
 }
 
+import { getFileFromIndexedDB, files, cacheAllFiles } from "../db/db";
+
 async function startFaceMesh(obj) {
-    callBackResult(obj,'人脸开始检测',3)
-    const faceMesh = new FaceMesh({
-        locateFile: file => {
-            return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
-        },
-    });
+    callBackResult(obj, '人脸开始检测', 3);
+    let faceMesh;
+    // 检查是否支持 IndexedDB
+    if (!('indexedDB' in window)) {
+        console.warn('当前环境不支持IndexedDB，将使用默认的CDN模式');
+        faceMesh = new FaceMesh({
+            locateFile: file => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+            },
+        });
+    } else {
+        // 获取 IndexedDB 中的文件
+        const fileBlobs = await Promise.all(files.map(file => getFileFromIndexedDB(file)));
+
+        if (fileBlobs.every(blob => blob instanceof Blob)) { // 确保每个文件都是 Blob 对象
+            faceMesh = new FaceMesh({
+                locateFile: file => {
+                    const blob = fileBlobs[files.indexOf(file)];
+                    if (blob) {
+                        return URL.createObjectURL(blob); // 确保传入的是 Blob 对象
+                    } else {
+                        throw new Error(`File not found in IndexedDB: ${file}`);
+                    }
+                },
+            });
+        } else {
+            console.error('One or more files are not Blob objects:', fileBlobs);
+            await cacheAllFiles();
+            // 重新调用 startFaceMesh 以确保使用缓存文件
+            return startFaceMesh(obj);
+        }
+    }
+
     faceMesh.setOptions(obj.face);
-    currentObj = obj
-    faceBefore(appData,currentObj,callBackResult,stopRecording,startRecording)
+    currentObj = obj;
+    faceBefore(appData, currentObj, callBackResult, stopRecording, startRecording);
     faceMesh.onResults(onResults);
+
     const camera = new Camera(appData.videoElement, {
         onFrame: async () => {
             await faceMesh.send({ image: appData.videoElement });
