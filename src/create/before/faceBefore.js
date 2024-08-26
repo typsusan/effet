@@ -13,12 +13,12 @@ export default (appData, currentObj, callBackResult, stopRecording, startRecordi
         }
     } else {
         // 动态加载模块
-        const actionModule = actionModules(`./${currentObj.type}/index.js`);
-        if (actionModule) {
-            const actionFunction = actionModule.default;
-            actionFunction(appData, currentObj, callBackResult, stopRecording, startRecording);
-        } else {
-            console.warn(`无法找到模块：${currentObj.type}`);
-        }
+        try {
+            const actionModule = actionModules(`./${currentObj.type}/index.js`);
+            if (actionModule) {
+                const actionFunction = actionModule.default;
+                actionFunction(appData, currentObj, callBackResult, stopRecording, startRecording);
+            }
+        }catch (e) {}
     }
 }

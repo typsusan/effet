@@ -5,7 +5,7 @@
 import {distance} from "../../../util/distanceUtils";
 import faceColor from "../../../color/faceColor";
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
-export default (appData,results,currentObj,callBackResult,stopRecording)=>{
+export default (appData,results,currentObj,callBackResult,stopRecording,startRecording)=>{
 
     const landmarks = results.multiFaceLandmarks[0];
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);

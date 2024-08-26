@@ -2,7 +2,6 @@ async function cacheFileToIndexedDB(url, fileName) {
     // 首先检查文件是否已经存在
     const existingFile = await getFileFromIndexedDB(fileName);
     if (existingFile) {
-        console.log(`${fileName} 已存在，跳过缓存`);
         return;
     }
 
@@ -14,7 +13,6 @@ async function cacheFileToIndexedDB(url, fileName) {
     const transaction = db.transaction('faceMeshFiles', 'readwrite');
     const store = transaction.objectStore('faceMeshFiles');
     store.put(blob, fileName);
-    console.log(`${fileName} 已成功缓存`);
 }
 
 function openIndexedDB() {

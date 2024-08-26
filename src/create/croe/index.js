@@ -43,6 +43,7 @@ Object.defineProperty(appData, 'predictionState', {
 
 function start(obj){
     startObj = obj;
+    appData.parentElement = obj.parentElement
     appData.wholeProcessState = true
     appData.videoElement = document.querySelector('#visio-login-video');
     appData.canvasElement = document.querySelector('#visio-login-canvas');
@@ -181,14 +182,18 @@ function stopRecording(obj) {
                 appData.mediaRecorder.onstop = async () => {
                     const blob = new Blob(appData.recordedChunks, { type: "video/mp4" });
                     const key = generateKey();
-                    const images = await captureFramesFromVideoBlob(blob, obj.dataRange);
-                    const resultsImages = await Promise.all(
-                        images.map(image => imageUtils(image, key))
-                    );
-                    appData.currentImages = resultsImages;
-                    callBackResult(obj, 'success', 10, resultsImages, faceBase64(blob), key);
-                    appData.wholeProcessState = false;
-                    resolve(resultsImages); // 当异步操作完成时，Promise 得到解决
+                    if (obj.dataRange){
+                        const images = await captureFramesFromVideoBlob(blob, obj.dataRange);
+                        const resultsImages = await Promise.all(
+                            images.map(image => imageUtils(image, key))
+                        );
+                        appData.currentImages = resultsImages;
+                        callBackResult(obj, 'success', 10, resultsImages, faceBase64(blob), key);
+                        appData.wholeProcessState = false;
+                        resolve(resultsImages);
+                    }else {
+                        getImageReturnUtils(appData,obj,callBackResult)
+                    }
                 };
             });
         } else {

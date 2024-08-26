@@ -30,7 +30,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
             const actionModule = actionModules(`./${currentObj.type}/index.js`);
             if (actionModule) {
                 const actionFunction = actionModule.default;
-                actionFunction(appData, results, currentObj, callBackResult, stopRecording);
+                actionFunction(appData, results, currentObj, callBackResult, stopRecording,startRecording);
             } else {
                 console.error(`无法找到模块：${currentObj.type}`);
             }

@@ -42,7 +42,6 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
                 }
             }
         }
-        console.log(sleepStartTime);
     });
 };
 
