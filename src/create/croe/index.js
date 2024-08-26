@@ -1,14 +1,14 @@
 import faceBase64 from "../../util/faceBase64.js";
-import { FaceMesh } from '../../util/faceMesh.js';
-import { Camera } from '../../util/cameraUtils.js'
+import {FaceMesh} from '../../util/faceMesh.js';
+import {Camera} from '../../util/cameraUtils.js'
 import appObject from "../default/appObject";
 import faceAction from "../action/faceAction";
 import imageUtils from "../../util/imageUtils";
-import { generateKey } from "../../util/getKey";
+import {generateKey} from "../../util/getKey";
 import {FACE_TYPE} from "../../enum";
 import getImageReturnUtils from "../../util/getImageReturnUtils";
 import faceBefore from "../before/faceBefore";
-import { getFileFromIndexedDB, files, cacheAllFiles } from "../db/db";
+import {cacheAllFiles, files, getFileFromIndexedDB} from "../db/db";
 import def from '../default/def'
 
 var appData = appObject
@@ -42,14 +42,13 @@ function start(obj){
 
 function restart(obj){
     steps = 0
-    startObj = def(startObj,FACE_TYPE)
     if (obj){
         if (typeof obj !== 'object'){
             throw new Error("Not a valid object");
         }
-        for(let key in obj){
-            startObj[key] = obj[key]
-        }
+        def(obj,FACE_TYPE)
+        obj.callBack = startObj.callBack
+        startObj = obj
     }
     appData = appObject
     if (!startObj){
