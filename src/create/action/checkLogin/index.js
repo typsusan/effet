@@ -43,19 +43,19 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
     if (!appData.blinkDetected) {
         if (blinked) {
             appData.blinkDetected = true;
-            callBackResult(currentObj, '眨眼检测通过', 5);
+            callBackResult(currentObj, '眨眼检测通过');
         }
     } else if (!appData.mouthDetected) {
-        callBackResult(currentObj, '请张张嘴', 6);
+        callBackResult(currentObj, '请张张嘴');
         if (mouthOpen) {
             appData.mouthDetected = true;
-            callBackResult(currentObj, '张嘴检测通过', 7);
+            callBackResult(currentObj, '张嘴检测通过');
         }
     } else if (!appData.headShakeDetected) {
-        callBackResult(currentObj, '请左右摇头', 8);
+        callBackResult(currentObj, '请左右摇头');
         if (headShaken) {
             appData.headShakeDetected = true;
-            callBackResult(currentObj, '摇头检测通过', 9);
+            callBackResult(currentObj, '摇头检测通过');
             stopRecording(currentObj);
         }
     }

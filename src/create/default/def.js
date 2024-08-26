@@ -3,34 +3,19 @@ export default (obj = {},FACE_TYPE = {})=>{
     if (typeof obj.blur !== 'number'){
         obj.blur = 8;
     }
-
     if (!obj.faceStyle) {
         obj.faceStyle = {};
-        obj.faceStyle.faceColor = {
-            color: '#2cc1dc',
-            line: 1
-        };
     } else {
-
-        if (typeof obj.faceStyle !== 'object'){
-            throw Error('"faceStyle" is not a valid object');
+        if (typeof obj.faceStyle !== 'object') {
+            throw new Error('"faceStyle" is not a valid object');
         }
-
-        if (!obj.faceStyle.faceColor) {
-            obj.faceStyle.faceColor = {
-                color: '#2cc1dc',
-                line: 1
-            };
-        } else {
-            if (!obj.faceStyle.faceColor.color) {
-                obj.faceStyle.faceColor.color = '#2cc1dc';
-            }
-            if (typeof obj.faceStyle.faceColor.line !== 'number') {
-                obj.faceStyle.faceColor.line = 1;
+        for (let keyObj in obj.faceStyle) {
+            if (obj.faceStyle.hasOwnProperty(keyObj) && typeof obj.faceStyle[keyObj] === 'object') {
+                obj.faceStyle[keyObj].color = obj.faceStyle[keyObj].color || '#00d6e1';
+                obj.faceStyle[keyObj].line = typeof obj.faceStyle[keyObj].line === 'number' ? obj.faceStyle[keyObj].line : 1;
             }
         }
     }
-
     if (!obj.face){
         obj.face = {
             maxNumFaces: 1,
@@ -90,8 +75,8 @@ export default (obj = {},FACE_TYPE = {})=>{
         }
     }
 
-    if (typeof obj.drawFace !== 'boolean'){
-        obj.drawFace = true
+    if (typeof obj.sleepContinuousPush !== 'boolean'){
+        obj.sleepContinuousPush = false
     }
 
     if (typeof obj.punchDistance !== 'number'){

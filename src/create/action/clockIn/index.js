@@ -19,7 +19,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
             if (!checkInTimer) {
                 checkInTimer = setTimeout(() => {
                     // 触发打卡接口
-                    callBackResult(currentObj,'打卡成功',4);
+                    callBackResult(currentObj,'打卡成功');
                     isCheckingIn = true;
                     stopRecording(currentObj)
                     // 设置2秒后重置isCheckingIn

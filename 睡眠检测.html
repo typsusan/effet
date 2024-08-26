@@ -18,13 +18,13 @@
                     minDetectionConfidence: 0.5,
                     minTrackingConfidence: 0.5
                 },
-                drawFace:false,
                 punchDistance:20,
                 punchDefaultColor:'#A9A9A9',
                 punchSuccessColor:'#13ce66',
                 type:effet.FACE_TYPE.SLEEP,
                 sleepEarThreshold:0.2,
                 sleepTime:2,
+                sleepContinuousPush:false, // 是否持续推送，true持续推送，false 每次闭眼只推送一次 默认值 false
                 threshold:{
                     lips:0.05,
                     eye:0.011,
@@ -47,10 +47,10 @@
                 //     console.log(result)
                 // },
                 faceStyle: {
-                    faceColor: {
-                        color:'#2cc1dc',
-                        line:1
-                    },
+                    // faceColor: {
+                    //     color:'#2cc1dc',
+                    //     line:1
+                    // },
                     // rightEye:{
                     //     color:'#297ae9',
                     //     line:2,

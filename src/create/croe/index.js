@@ -8,26 +8,10 @@ import { generateKey } from "../../util/getKey";
 import {FACE_TYPE} from "../../enum";
 import getImageReturnUtils from "../../util/getImageReturnUtils";
 import faceBefore from "../before/faceBefore";
+import { getFileFromIndexedDB, files, cacheAllFiles } from "../db/db";
+import def from '../default/def'
 
-var appData = {
-    mediaRecorder: null,
-    recordedChunks: [],
-    predictionState: false,
-    currentImages: [],
-    videoElement: null,
-    canvasElement: null,
-    canvasCtx: null,
-    mouthOpen: false,
-    blinked: false,
-    blinkDetected: false, // 是否检测到眨眼
-    mouthDetected: false, // 是否检测到张嘴
-    lastNoseX: null,  // 上一帧鼻尖的X坐标
-    noseXChanges: [],  // 记录鼻尖X坐标的变化
-    wholeProcessState:false,
-    currentText:'',
-    parentElement:null,
-};
-
+var appData = appObject
 let callBackObj = null;
 let startObj = null;
 let currentObj = null;
@@ -49,13 +33,23 @@ function start(obj){
     appData.canvasElement = document.querySelector('#visio-login-canvas');
     appData.canvasElement.style.filter = `blur(${0}px)`
     appData.canvasCtx = appData.canvasElement.getContext('2d');
-    callBackResult(obj,'开始绘制',1)
-    initVideoAndCanvas(obj);
+    initVideoAndCanvas(obj).then(()=>{
+        callBackResult(obj,'开始绘制')
+    }).catch(error=>{
+        callBackResult(obj, '初始化失败', -1);
+    })
 }
 
 function restart(obj){
+    steps = 0
+    startObj = def(startObj,FACE_TYPE)
     if (obj){
-        startObj = obj
+        if (typeof obj !== 'object'){
+            throw new Error("Not a valid object");
+        }
+        for(let key in obj){
+            startObj[key] = obj[key]
+        }
     }
     appData = appObject
     if (!startObj){
@@ -64,24 +58,30 @@ function restart(obj){
     start(startObj)
 }
 
-async function initVideoAndCanvas(obj) {
-    try {
-        appData.videoElement.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
-        appData.videoElement.onloadedmetadata = () => {
-            appData.videoElement.play();
-            callBackResult(obj,'视频流已获取并播放',2)
-            startFaceMesh(obj);
-        };
-    } catch (error) {
-        callBackResult(obj,'初始化失败',-1)
-        console.error("初始化失败:", error);
-    }
+function initVideoAndCanvas(obj) {
+    return navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            return new Promise((resolve, reject) => {
+                appData.videoElement.srcObject = stream;
+                appData.videoElement.onloadedmetadata = async () => {
+                    try {
+                        appData.videoElement.play();
+                        callBackResult(obj, '视频流已获取并播放', 1);
+                        await startFaceMesh(obj);
+                        resolve();
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+            });
+        })
+        .catch(error => {
+            throw error;
+        });
 }
 
-import { getFileFromIndexedDB, files, cacheAllFiles } from "../db/db";
-
 async function startFaceMesh(obj) {
-    callBackResult(obj, '人脸开始检测', 3);
+    callBackResult(obj, '人脸开始检测');
     let faceMesh;
     // 检查是否支持 IndexedDB
     if (!('indexedDB' in window)) {
@@ -136,6 +136,8 @@ function onResults(results){
     faceAction(appData,results,currentObj,callBackResult,stopRecording,startRecording)
 }
 
+let steps = 0;
+
 function callBackResult(obj, message,step, base64Array = [], video = null,key = '') {
     if (!obj || typeof obj.callBack !== 'function') {
         console.error('Invalid callback object or function:', obj);
@@ -144,13 +146,14 @@ function callBackResult(obj, message,step, base64Array = [], video = null,key = 
     if (appData.currentText ===  message){
         return;
     }
+    steps = steps === 0 ? 1 : ++ steps;
     appData.currentText = message
     callBackObj = {
         videoElement: appData.videoElement,
         canvasElement: appData.canvasElement,
         progress_message: message,
         parentElement:appData.parentElement,
-        step:step,
+        step: (typeof step === 'number' && step <= 0) ? step : steps,
         base64Array: base64Array,
         video: video,
         secretKey:key,

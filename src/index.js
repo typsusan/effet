@@ -17,11 +17,11 @@ export function init(obj) {
         faceElements.init(obj);
         cacheAllFiles()
             .then(() => {
-                start(obj); // 如果缓存成功，继续执行
+                start(obj);
             })
             .catch(error => {
                 console.error('Caching files failed, falling back to CDN:', error);
-                start(obj); // 如果缓存失败，依然继续执行
+                start(obj);
             });
     };
 }
