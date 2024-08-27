@@ -83,10 +83,6 @@ export default (obj = {},FACE_TYPE = {})=>{
         obj.punchDistance = 30
     }
 
-    if (typeof obj.punchDefaultColor !== 'string'){
-        obj.punchDefaultColor = '#A9A9A9'
-    }
-
     if (typeof obj.punchSuccessColor !== 'string'){
         obj.punchSuccessColor = '#13ce66'
     }

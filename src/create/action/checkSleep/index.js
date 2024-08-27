@@ -17,6 +17,13 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
         // 计算左眼和右眼的EAR
         const leftEAR = calculateEAR(landmarks, leftEyeIndexes);
         const rightEAR = calculateEAR(landmarks, rightEyeIndexes);
+
+        // 如果任何一个EAR值为null，跳过此人脸
+        if (leftEAR === null || rightEAR === null) {
+            console.warn(`EAR计算失败，跳过此人脸。`);
+            return;
+        }
+
         // 平均EAR值
         const avgEAR = (leftEAR + rightEAR) / 2.0;
         // 设定一个阈值，通常为0.2以下认为眼睛闭合
@@ -53,6 +60,12 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
 };
 
 const calculateEAR = (landmarks, eyeIndexes) => {
+    // 检查所有眼睛关键点是否存在
+    for (let i = 0; i < eyeIndexes.length; i++) {
+        if (!landmarks[eyeIndexes[i]]) {
+            return null;
+        }
+    }
     // 获取关键点坐标
     const p2_p6 = calculateDistance(landmarks[eyeIndexes[1]], landmarks[eyeIndexes[5]]);
     const p3_p5 = calculateDistance(landmarks[eyeIndexes[2]], landmarks[eyeIndexes[4]]);
