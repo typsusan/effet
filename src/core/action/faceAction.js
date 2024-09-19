@@ -2,7 +2,7 @@
  * ‘人脸动作’ 集合入口
  * 'Face Action' collection entry
  */
-import faceColor from "../../color/faceColor";
+import faceColor from "@/styles/faceColor";
 import isEmptyFunctionUtil from "../../util/isEmptyFunctionUtil";
 
 // 使用 require.context 动态加载模块

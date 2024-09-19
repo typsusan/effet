@@ -1,4 +1,4 @@
-const templateModule = require.context('../../overall/template', true, /\.js$/);
+const templateModule = require.context('../../styles/template', true, /\.js$/);
 
 const faceElements = {
     init: function (obj) {

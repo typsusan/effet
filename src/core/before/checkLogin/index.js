@@ -1,4 +1,4 @@
-import {FaceManager} from "../../../overall/template/components/FaceManager.ts";
+import {FaceManager} from '@/components/FaceManager.ts'
 
 export default (appData,currentObj,callBackResult,stopRecording,startRecording)=>{
     callBackResult(currentObj,'请眨眨眼')

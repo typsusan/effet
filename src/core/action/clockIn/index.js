@@ -1,4 +1,4 @@
-import faceColor from "../../../color/faceColor";
+import faceColor from "@/styles/faceColor";
 
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);

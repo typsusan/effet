@@ -1,20 +1,24 @@
-import faceBase64 from "../../util/faceBase64.js";
-import {FaceMesh} from '../../util/faceMesh.js';
-import {Camera} from '../../util/cameraUtils.js'
-import appObject from "../default/appObject";
-import faceAction from "../action/faceAction";
-import imageUtils from "../../util/imageUtils";
-import {generateKey} from "../../util/getKey";
-import {FACE_LOADING, FACE_SIZE, FACE_TYPE,FACE_TEMPLATE} from "../../enum";
-import getImageReturnUtils from "../../util/getImageReturnUtils";
-import faceBefore from "../before/faceBefore";
-import {cacheAllFiles, files, getFileFromIndexedDB} from "../db/db";
-import def from '../default/def'
-import LoadingManager from "../../overall/loading/loading";
+import faceBase64 from "@/util/faceBase64.js";
+import {FaceMesh} from '@/util/faceMesh.js';
+import {Camera} from '@/util/cameraUtils.js'
+import imageUtils from "@/util/imageUtils";
+import {generateKey} from "@/util/getKey";
+import getImageReturnUtils from "@/util/getImageReturnUtils";
+
+import faceAction from "./action/faceAction";
+import faceBefore from "./before/faceBefore";
+import def from './default/def'
+import AppState from "@/components/AppState";
+
+import {cacheAllFiles, files, getFileFromIndexedDB} from "./db/db";
+
+import {FACE_LOADING, FACE_SIZE, FACE_TYPE,FACE_TEMPLATE} from "@/enums/Constant.ts";
+
+import LoadingManager from "../styles/loading/loading";
 
 
 let loadingManager = null;
-var appData = appObject
+var appData = new AppState();
 let callBackObj = null;
 let startObj = null;
 let currentObj = null;
@@ -73,7 +77,8 @@ function restart(obj){
         obj.parentElement = startObj.parentElement
         startObj = obj
     }
-    appData = appObject
+    close();
+    appData = new AppState();
     if (!startObj){
         throw new Error("Please complete the call to 'init' before invoking the restart task");
     }

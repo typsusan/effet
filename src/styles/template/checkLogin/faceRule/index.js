@@ -1,5 +1,5 @@
-import { FACE_SIZE } from "../../../../enum";
-import {FaceManager} from '../../components/FaceManager.ts'
+import { FACE_SIZE } from "@/enums/Constant.ts";
+import {FaceManager} from '@/components/FaceManager.ts'
 const sizeConfigs = {
     [FACE_SIZE.MIN]: {
         w_h: 200,

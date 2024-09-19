@@ -1,4 +1,4 @@
-import {DeviceUtil} from "../../../util/DeviceUtil";
+import {DeviceUtil} from "@/util/deviceUtil";
 export class FaceManager {
     private static instance: FaceManager;
     public faceComponents: any[] = [];

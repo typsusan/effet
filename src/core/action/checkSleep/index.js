@@ -1,5 +1,5 @@
-import {calculateDistance} from "../../../util/distanceUtils";
-import faceColor from "../../../color/faceColor";
+import {calculateDistance} from "@/util/distanceUtils";
+import faceColor from "@/styles/faceColor";
 let sleepStartTime = null; // 记录闭眼开始时间
 let wakeStartTime = null; // 记录睁眼开始时间
 

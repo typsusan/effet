@@ -1,12 +1,12 @@
-import { faceElements } from "./create/dom/createFaceElements.js";
-import { restart, start, close } from "./create/croe";
-import def from './create/default/def.js';
-import { FACE_TYPE, FACE_LOADING, FACE_SIZE, FACE_TEMPLATE } from "./enum";
-import { cacheAllFiles } from "./create/db/db";
-import { $inform } from './overall/notification/notification';
+import { faceElements } from "./core/dom/createFaceElements.js";
+import { restart, start, close } from "./core/index";
+import def from './core/default/def.js';
+import { FACE_TYPE, FACE_LOADING, FACE_SIZE, FACE_TEMPLATE } from "@/enums/Constant.ts";
+import { cacheAllFiles } from "./core/db/db";
+import { $inform } from './styles/notification/notification';
 
 // 引入样式文件
-const requireStyles = require.context('./overall', true, /\.css$/);
+const requireStyles = require.context('./styles', true, /\.css$/);
 requireStyles.keys().forEach(requireStyles);
 
 // 初始化函数

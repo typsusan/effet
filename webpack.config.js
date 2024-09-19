@@ -3,6 +3,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
+
+    devtool: 'source-map', // 启用source-map以帮助调试
+    stats: {
+        errorDetails: true, // 显示错误的详细信息
+        children: true, // 显示子模块的错误
+    },
+
     entry: {
         index: './src/index.js',
     },
@@ -12,6 +19,12 @@ module.exports = {
         library: 'effet',
         libraryTarget: 'umd',
         globalObject: 'this',
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.json'],
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+        },
     },
     optimization: {
         splitChunks: {
