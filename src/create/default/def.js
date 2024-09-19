@@ -1,4 +1,4 @@
-export default (obj = {},FACE_TYPE = {})=>{
+export default (obj = {},FACE_TYPE = {},FACE_LOADING = {},FACE_SIZE = {},FACE_TEMPLATE = {})=>{
 
     if (typeof obj.blur !== 'number'){
         obj.blur = 8;
@@ -75,6 +75,51 @@ export default (obj = {},FACE_TYPE = {})=>{
         }
     }
 
+
+    if (obj.faceTemplate){
+        if (typeof obj.faceTemplate !== 'object') {
+            throw new Error('"faceTemplate" is not a valid object');
+        }
+
+        if (!obj.faceTemplate.size){
+            obj.faceTemplate.size = FACE_SIZE.MID
+        }else {
+            if (!Object.values(FACE_SIZE).includes(obj.faceTemplate.size)){
+                obj.faceTemplate.size = FACE_SIZE.MID
+            }
+        }
+
+        // 根据不同类型选择默认值,待开发
+        if (!obj.faceTemplate.type){
+            obj.faceTemplate.type = FACE_TEMPLATE.FACE_RULE
+        }else {
+            if (!Object.values(FACE_TEMPLATE).includes(obj.faceTemplate.type)){
+                obj.faceTemplate.type = FACE_TEMPLATE.FACE_RULE
+            }
+        }
+
+        if (typeof obj.faceTemplate.tips !== 'boolean'){
+            obj.faceTemplate.tips = true
+        }
+
+    }
+
+    if (obj.loading){
+        if (!Object.values(FACE_LOADING).includes(obj.loading)){
+            obj.type = FACE_LOADING.MATRIX
+        }
+    }
+
+    if (typeof obj.loadingColor === 'string'){
+        const root = document.documentElement;
+        root.style.setProperty('--face-effet-main-color', obj.loadingColor);
+    }
+
+    // 人脸登录强制只检测当前人脸
+    if (obj.type === FACE_TYPE.LOGIN){
+        obj.face.maxNumFaces = 1
+    }
+
     if (typeof obj.sleepContinuousPush !== 'boolean'){
         obj.sleepContinuousPush = false
     }
@@ -84,7 +129,7 @@ export default (obj = {},FACE_TYPE = {})=>{
     }
 
     if (typeof obj.punchSuccessColor !== 'string'){
-        obj.punchSuccessColor = '#13ce66'
+        obj.punchSuccessColor = '#00d6e1'
     }
 
     if (typeof obj.sleepEarThreshold !== 'number'){

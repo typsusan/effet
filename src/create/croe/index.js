@@ -5,12 +5,15 @@ import appObject from "../default/appObject";
 import faceAction from "../action/faceAction";
 import imageUtils from "../../util/imageUtils";
 import {generateKey} from "../../util/getKey";
-import {FACE_TYPE} from "../../enum";
+import {FACE_LOADING, FACE_SIZE, FACE_TYPE,FACE_TEMPLATE} from "../../enum";
 import getImageReturnUtils from "../../util/getImageReturnUtils";
 import faceBefore from "../before/faceBefore";
 import {cacheAllFiles, files, getFileFromIndexedDB} from "../db/db";
 import def from '../default/def'
+import LoadingManager from "../../overall/loading/loading";
 
+
+let loadingManager = null;
 var appData = appObject
 let callBackObj = null;
 let startObj = null;
@@ -26,6 +29,8 @@ Object.defineProperty(appData, 'predictionState', {
 });
 
 function start(obj){
+    loadingManager = new LoadingManager(obj);
+    loadingManager.showLoading(obj.parentElement);
     startObj = obj;
     appData.parentElement = obj.parentElement
     appData.wholeProcessState = true
@@ -40,14 +45,32 @@ function start(obj){
     })
 }
 
+function close() {
+    // 停止视频流
+    if (appData.videoElement?.srcObject) {
+        appData.videoElement.srcObject.getTracks().forEach(track => track.stop());
+        appData.videoElement.srcObject = null;
+    }
+    // 清除画布
+    appData.canvasCtx?.clearRect(0, 0, appData.canvasElement?.width || 0, appData.canvasElement?.height || 0);
+    // 重置应用状态
+    Object.assign(appData, {
+        wholeProcessState: false,
+        currentText: '',
+        recordedChunks: []
+    });
+}
+
+
 function restart(obj){
     steps = 0
     if (obj){
         if (typeof obj !== 'object'){
             throw new Error("Not a valid object");
         }
-        def(obj,FACE_TYPE)
+        def(obj,FACE_TYPE,FACE_LOADING,FACE_SIZE,FACE_TEMPLATE)
         obj.callBack = startObj.callBack
+        obj.parentElement = startObj.parentElement
         startObj = obj
     }
     appData = appObject
@@ -120,6 +143,9 @@ async function startFaceMesh(obj) {
 
     const camera = new Camera(appData.videoElement, {
         onFrame: async () => {
+            if (loadingManager != null){
+                loadingManager.hideLoading();
+            }
             await faceMesh.send({ image: appData.videoElement });
         },
         width: 1280,
@@ -234,4 +260,4 @@ async function captureFramesFromVideoBlob(blob, times) {
 }
 
 
-export { start,restart }
+export { start,restart,close }

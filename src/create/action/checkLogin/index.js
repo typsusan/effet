@@ -4,6 +4,7 @@
  */
 import {distance} from "../../../util/distanceUtils";
 import faceColor from "../../../color/faceColor";
+import {FaceManager} from "../../../overall/template/components/FaceManager.ts";
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
 export default (appData,results,currentObj,callBackResult,stopRecording,startRecording)=>{
 
@@ -47,12 +48,14 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
         }
     } else if (!appData.mouthDetected) {
         callBackResult(currentObj, '请张张嘴');
+        FaceManager.getInstance().updateMessage(0, "请张张嘴");
         if (mouthOpen) {
             appData.mouthDetected = true;
             callBackResult(currentObj, '张嘴检测通过');
         }
     } else if (!appData.headShakeDetected) {
         callBackResult(currentObj, '请左右摇头');
+        FaceManager.getInstance().updateMessage(0, "请左右摇头");
         if (headShaken) {
             appData.headShakeDetected = true;
             callBackResult(currentObj, '摇头检测通过');

@@ -1,4 +1,7 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
 module.exports = {
     entry: {
         index: './src/index.js',
@@ -15,6 +18,10 @@ module.exports = {
             chunks: 'all',
             name: 'common',
         },
+        minimizer: [
+            `...`,
+            new CssMinimizerPlugin(), // 添加CSS压缩插件
+        ],
     },
     experiments: {
         asyncWebAssembly: true,
@@ -33,17 +40,24 @@ module.exports = {
                 }
             },
             {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.css$/, // 处理 CSS 文件
                 use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: { importLoaders: 1 }
-                    },
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
                     'postcss-loader'
                 ],
             },
         ],
     },
-    mode: 'development',
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'effet.css',
+        }),
+    ],
+    mode: 'production',
 };

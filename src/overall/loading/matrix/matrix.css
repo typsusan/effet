@@ -1,0 +1,336 @@
+.face-effet-socket {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -100px;
+}
+
+.face-effet-hex-brick {
+    background: var(--face-effet-main-color);
+    width: 30px;
+    height: 17px;
+    position: absolute;
+    top: 5px;
+    animation-name: face-effet-fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: face-effet-fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.face-effet-h2 {
+    transform: rotate(60deg);
+    -webkit-transform: rotate(60deg);
+}
+
+.face-effet-h3 {
+    transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+}
+
+.face-effet-gel {
+    height: 30px;
+    width: 30px;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.face-effet-center-gel {
+    margin-left: -15px;
+    margin-top: -15px;
+    animation-name: face-effet-pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: face-effet-pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.face-effet-c1 {
+    margin-left: -47px;
+    margin-top: -15px;
+}
+
+.face-effet-c2 {
+    margin-left: -31px;
+    margin-top: -43px;
+}
+
+.face-effet-c3 {
+    margin-left: 1px;
+    margin-top: -43px;
+}
+
+.face-effet-c4 {
+    margin-left: 17px;
+    margin-top: -15px;
+}
+
+.face-effet-c5 {
+    margin-left: -31px;
+    margin-top: 13px;
+}
+
+.face-effet-c6 {
+    margin-left: 1px;
+    margin-top: 13px;
+}
+
+.face-effet-c7 {
+    margin-left: -63px;
+    margin-top: -43px;
+}
+
+.face-effet-c8 {
+    margin-left: 33px;
+    margin-top: -43px;
+}
+
+.face-effet-c9 {
+    margin-left: -15px;
+    margin-top: 41px;
+}
+
+.face-effet-c10 {
+    margin-left: -63px;
+    margin-top: 13px;
+}
+
+.face-effet-c11 {
+    margin-left: 33px;
+    margin-top: 13px;
+}
+
+.face-effet-c12 {
+    margin-left: -15px;
+    margin-top: -71px;
+}
+
+.face-effet-c13 {
+    margin-left: -47px;
+    margin-top: -71px;
+}
+
+.face-effet-c14 {
+    margin-left: 17px;
+    margin-top: -71px;
+}
+
+.face-effet-c15 {
+    margin-left: -47px;
+    margin-top: 41px;
+}
+
+.face-effet-c16 {
+    margin-left: 17px;
+    margin-top: 41px;
+}
+
+.face-effet-c17 {
+    margin-left: -79px;
+    margin-top: -15px;
+}
+
+.face-effet-c18 {
+    margin-left: 49px;
+    margin-top: -15px;
+}
+
+.face-effet-c19 {
+    margin-left: -63px;
+    margin-top: -99px;
+}
+
+.face-effet-c20 {
+    margin-left: 33px;
+    margin-top: -99px;
+}
+
+.face-effet-c21 {
+    margin-left: 1px;
+    margin-top: -99px;
+}
+
+.face-effet-c22 {
+    margin-left: -31px;
+    margin-top: -99px;
+}
+
+.face-effet-c23 {
+    margin-left: -63px;
+    margin-top: 69px;
+}
+
+.face-effet-c24 {
+    margin-left: 33px;
+    margin-top: 69px;
+}
+
+.face-effet-c25 {
+    margin-left: 1px;
+    margin-top: 69px;
+}
+
+.face-effet-c26 {
+    margin-left: -31px;
+    margin-top: 69px;
+}
+
+.face-effet-c27 {
+    margin-left: -79px;
+    margin-top: -15px;
+}
+
+.face-effet-c28 {
+    margin-left: -95px;
+    margin-top: -43px;
+}
+
+.face-effet-c29 {
+    margin-left: -95px;
+    margin-top: 13px;
+}
+
+.face-effet-c30 {
+    margin-left: 49px;
+    margin-top: 41px;
+}
+
+.face-effet-c31 {
+    margin-left: -79px;
+    margin-top: -71px;
+}
+
+.face-effet-c32 {
+    margin-left: -111px;
+    margin-top: -15px;
+}
+
+.face-effet-c33 {
+    margin-left: 65px;
+    margin-top: -43px;
+}
+
+.face-effet-c34 {
+    margin-left: 65px;
+    margin-top: 13px;
+}
+
+.face-effet-c35 {
+    margin-left: -79px;
+    margin-top: 41px;
+}
+
+.face-effet-c36 {
+    margin-left: 49px;
+    margin-top: -71px;
+}
+
+.face-effet-c37 {
+    margin-left: 81px;
+    margin-top: -15px;
+}
+
+.face-effet-r1 {
+    animation-name: face-effet-pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+    -webkit-animation-name: face-effet-pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: .2s;
+}
+
+.face-effet-r2 {
+    animation-name: face-effet-pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .4s;
+    -webkit-animation-name: face-effet-pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: .4s;
+}
+
+.face-effet-r3 {
+    animation-name: face-effet-pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .6s;
+    -webkit-animation-name: face-effet-pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: .6s;
+}
+
+.face-effet-r1 > .face-effet-hex-brick {
+    animation-name: face-effet-fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .2s;
+    -webkit-animation-name: face-effet-fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: .2s;
+}
+
+.face-effet-r2 > .face-effet-hex-brick {
+    animation-name: face-effet-fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .4s;
+    -webkit-animation-name: face-effet-fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: .4s;
+}
+
+.face-effet-r3 > .face-effet-hex-brick {
+    animation-name: face-effet-fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: .6s;
+    -webkit-animation-name: face-effet-fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: .6s;
+}
+
+@keyframes face-effet-pulse00 {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.01);
+        transform: scale(0.01);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes face-effet-fade00 {
+    0% {
+        background: var(--face-effet-main-color);
+    }
+
+    50% {
+        background: var(--face-effet-main-color);
+    }
+
+    100% {
+        background: var(--face-effet-main-color);
+    }
+}

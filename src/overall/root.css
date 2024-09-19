@@ -1,0 +1,23 @@
+:root {
+    --face-effet-main-color:#00d6e1;
+
+    --face-effet-notification-success-bg:#dcfce7;
+    --face-effet-notification-success-title:#14532d;
+    --face-effet-notification-success-progress:#22c55e;
+    --face-effet-notification-success-shadow:rgba(34, 197, 94, 0.5);
+
+    --face-effet-notification-info-bg:#dbeafe;
+    --face-effet-notification-info-title:#1e3a8a;
+    --face-effet-notification-info-progress:#3b82f6;
+    --face-effet-notification-info-shadow:rgba(59, 130, 246, 0.5);
+
+    --face-effet-notification-warning-bg:#fef9c3;
+    --face-effet-notification-warning-title:#713f12;
+    --face-effet-notification-warning-progress:#eab308;
+    --face-effet-notification-warning-shadow:rgba(234, 179, 8, 0.5);
+
+    --face-effet-notification-error-bg:#fee2e2;
+    --face-effet-notification-error-title:#7f1d1d;
+    --face-effet-notification-error-progress:#ef4444;
+    --face-effet-notification-error-shadow:rgba(239, 68, 68, 0.5);
+}

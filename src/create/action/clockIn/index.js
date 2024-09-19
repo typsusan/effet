@@ -1,8 +1,5 @@
 import faceColor from "../../../color/faceColor";
 
-let checkInTimer = null;
-let isCheckingIn = false;
-
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
     results.multiFaceLandmarks.forEach((landmarks) => {
@@ -10,31 +7,19 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
 
         // 如果当前人脸不符合打卡标准，就直接跳过剩下的步骤
         if (!meetsCriteria) {
-            clearTimeout(checkInTimer);
-            checkInTimer = null;
+           // clearTimeout(checkInTimer);
+           // checkInTimer = null;
+            appData.currentText = ''
             return;
+        }else {
+            if (appData.currentText !== 'success'){
+                stopRecording(currentObj);
+            }
         }
 
         // 绘制人脸框框
         drawFaceBox(appData.canvasCtx, landmarks, currentObj);
 
-        if (meetsCriteria && !isCheckingIn) {
-            if (!checkInTimer) {
-                checkInTimer = setTimeout(() => {
-                    // 触发打卡接口
-                    isCheckingIn = true;
-                    stopRecording(currentObj);
-
-                    // 设置2秒后重置isCheckingIn
-                    setTimeout(() => {
-                        isCheckingIn = false;
-                    }, 2000);
-
-                    clearTimeout(checkInTimer);
-                    checkInTimer = null;
-                }, 1000);
-            }
-        }
     });
 
     function checkIfMeetsCriteria(landmarks, currentObj) {
@@ -61,7 +46,6 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
 
         // 检查关键点是否存在
         if (!leftCheek || !rightCheek || !chin || !forehead) {
-            console.warn('关键点缺失，无法绘制人脸框');
             return;
         }
 

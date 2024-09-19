@@ -1,0 +1,138 @@
+.face-effet-check-login-model-msg-faceRule-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 60%;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-name: face-effet-check-login-model-msg-faceRule-rotateLoader;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgress svg {
+    stroke-width: 16px;
+    fill: none;
+    transform-origin: center;
+    z-index: 999;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressFirst circle,
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressSecond circle,
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressFirst,
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressSecond {
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressFirst circle,
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressSecond circle {
+    animation-duration: 3s;
+    border-radius: 15px;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressFirst,
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressSecond {
+    position: absolute;
+    animation-duration: 6s;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressFirst circle {
+    animation-name: face-effet-check-login-model-msg-faceRule-circleFirst;
+    stroke-dasharray: 628, 628;
+    stroke-dashoffset: 0;
+    stroke: rgba(5, 125, 212,0.4);
+    stroke-linecap: round;
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressSecond {
+    transform: rotate(-14deg);
+}
+
+.face-effet-check-login-model-msg-faceRule-iconLoaderProgressSecond circle {
+    animation-name: face-effet-check-login-model-msg-faceRule-circleSecond;
+    stroke-dasharray: 628, 628;
+    stroke-dashoffset: 0;
+    stroke: rgba(0, 214, 225,0.2);
+    stroke-linecap: round;
+}
+
+@keyframes face-effet-check-login-model-msg-faceRule-circleFirst {
+    from,
+    to {
+        stroke-dashoffset: 50;
+    }
+
+    50% {
+        stroke-dashoffset: 625;
+    }
+}
+
+@keyframes face-effet-check-login-model-msg-faceRule-circleSecond {
+    from,
+    to {
+        stroke-dashoffset: -625;
+    }
+
+    50% {
+        stroke-dashoffset: -50;
+    }
+}
+
+@keyframes face-effet-check-login-model-msg-faceRule-rotateLoader {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.face-effet-check-login-model-msg-fuji-faceRule{
+    height: 300px;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.face-effet-check-login-model-msg-faceRule{
+    height: 100px;
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    color: #fff;
+}
+
+.face-effet-check-login-model-msg-faceRule-tips{
+    height: 100px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    color: #575757;
+    font-weight: bold;
+    font-family: "Baskerville Old Face";
+    text-align: center;
+    line-height: 100px;
+}
+
+.face-effet-check-login-model-msg-faceRule-show{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 60%;
+    border-radius: 50%;
+}
+.face-effet-check-login-model-msg-faceRule-show video,
+.face-effet-check-login-model-msg-faceRule-show canvas{
+    border-radius: 50%;
+}
