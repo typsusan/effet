@@ -22,10 +22,9 @@ const faceElements = {
 
         obj.parentElement = el
 
-        if (obj.faceTemplate){
+        if (obj.appearance){
             try {
-                const dynamicPath = `${obj.type}/${obj.faceTemplate.type}`;
-                const defaultFun = templateModule(`./${dynamicPath}/index.js`).default;
+                const defaultFun = templateModule(`./${obj.type}/default/index.js`).default;
                 defaultFun(obj);
             }catch (E){
                 throw Error('No available template found')

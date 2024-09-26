@@ -6,25 +6,25 @@
 
 
 ## 入参对象值
-| 名称          | 类型                       | 应用范围   | 默认值         | 是否必填                                               | 描述                                                                                                                                                             |
-|-------------|--------------------------|--------|--------------|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| el | `String` \ `HTMLElement` | `ALL`  |                                                                                                           | <a style="color:red; text-decoration:none; ">是</a> | 主要face框架容器，可传入class,或者id，或者直接直接传一个元素                                                                                                                           |
-| blur | `Number`                 | `人脸登录` | 8                                                                                                      | 否                                                  | 针对于 **“人脸登录”** 模式 登录成功后，镜头的模糊度                                                                                                                                 |
-| dataRange | `Array`                  | `人脸登录` | [1, 1.5, 2.1]                                                                                      | 否                                                  | 针对于 **“人脸登录”** 模式，视频截取的第几秒                                                                                                                                     |
-| face | `Object`                 | `ALL`  | {<br>maxNumFaces:1,<br>refineLandmarks:true,<br>minDetectionConfidence:0.5,<br>minTrackingConfidence:0.5<br>}| 否                                                  | <a href="#face-parameters" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                            |
-| type| `FACE_TYPE`              | `ALL`  | FACE_TYPE.LOGIN                                                                                              | 否                                                  | <a href="#face-parameters-face-type" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                  |
-|threshold| `Object`                 | `人脸登录` | {<br>lips:0.05, <br>eye:0.011,<br>headShake:0.01<br>}                                                   | 否                                                  | <a href="#face-parameters-threshold" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                  |
-|before| `function`               | `ALL`  |                                                                                                            | 否                                                  | 人脸框架执行前的前置函数，一但使用了before函数，则会覆盖框架自带的before函数， <br><a href="#face-parameters-before" style="color:blue; text-decoration:none; font-weight:bold;">查看前置函数调用方式</a> |  
-|action| `function`               | `ALL`  |                                                                                                            | 否                                                  | 人脸动作函数，一但使用action函数，则会覆盖框架自带的action函数<br>  <a href="#face-parameters-action" style="color:blue; text-decoration:none; font-weight:bold;">查看动作函数调用方式</a>    |
-|faceStyle| `Object`                 | `ALL`  | null                                                                                                      | 否                                                  | 人脸样式网格样式，可以给人脸画一个网格线，单独给眼睛，鼻子，嘴巴轮廓单独上色  <br>  <a href="#face-parameters-face-style" style="color:blue; text-decoration:none; font-weight:bold;">查看参数示例</a> |
-|loading| `FACE_LOADING`           | `ALL`  | null                                                                                                       | 否                                                  | 填写了则会有默认的加载动画效果，查看参数详细  <br><a href="#face-parameters-loading" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                |
-|faceTemplate| `Object`                 | `ALL`  | null                                                                                                    | 否                                                  | 人脸样式模板，可用于，人脸登录，人脸打卡，睡眠检测  <br><a href="#face-parameters-faceTemplate" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>            |
-|callBack| ` function`              | `ALL`  |                                                                                                             | <a style="color:red; text-decoration:none; ">是</a>                                                   | 当前是一个回调函数，会打印整个人脸运行的回调消息，可在当前方法进行后端的调用  <br><a href="#face-parameters-callBack" style="color:blue; text-decoration:none; font-weight:bold;">查看回调函数调用方法</a> |
-|punchDistance| ` Number`                | `人脸打卡` | 20                                                                                                     | 否                                                  | 打卡距离，人脸正对摄像头的距离，默认20厘米          |
-|punchSuccessColor| ` String`                | `人脸打卡` | #00d6e1                                                                                            | 否                                                  | 打卡验证成功后的外框颜色                    |
-|sleepEarThreshold| ` Number`                | `睡眠检测` | 0.2                                                                                                 | 否                                                  | 睡眠检测，当眼睛闭眼的阈值                   |
-|sleepTime| ` Number`                | `睡眠检测` | 2                                                                                                          | 否                                                  | 睡眠检测，单位秒，当闭眼多久则判断是在睡眠           |
-|sleepContinuousPush| ` Boolean`               | `睡眠检测` | false                                                                                               | 否                                                  | 当前检测到睡眠，是否持续推送消息，默认为false,只推送一次 |
+| 名称                  | 类型                     | 应用范围          | 默认值                                                                                                           | 是否必填                                               | 描述                                                                                                                                                             |
+|---------------------|------------------------|---------------|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| el                  | `String` \ `HTMLElement` | `ALL`         |                                                                                                               | <a style="color:red; text-decoration:none; ">是</a> | 主要face框架容器，可传入class,或者id，或者直接直接传一个元素                                                                                                                           |
+| blur                | `Number`               | `人脸登录`        | 8                                                                                                             | 否                                                  | 针对于 **“人脸登录”** 模式 登录成功后，镜头的模糊度                                                                                                                                 |
+| dataRange           | `Array`                | `人脸登录`        | [1, 1.5, 2.1]                                                                                                 | 否                                                  | 针对于 **“人脸登录”** 模式，视频截取的第几秒                                                                                                                                     |
+| face                | `Object`               | `ALL`         | {<br>maxNumFaces:1,<br>refineLandmarks:true,<br>minDetectionConfidence:0.5,<br>minTrackingConfidence:0.5<br>} | 否                                                  | <a href="#face-parameters" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                            |
+| type                | `FACE_TYPE`            | `ALL`         | FACE_TYPE.LOGIN                                                                                               | 否                                                  | <a href="#face-parameters-face-type" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                  |
+| appearance          | `Boolean`                       | `人脸登录` `人脸添加` | true                                                                                                          | 否                                                  | 当为false的时候，则不应用任何样式                                                                                                                                            |
+| size                | `String`| `人脸登录` `人脸添加` | mid                                                                                                           | 否                                                  | 可选值：max,mid,min  当前样式框的大小                                                                                                                                      |
+| threshold           | `Object`               | `人脸登录`        | {<br>lips:0.05, <br>eye:0.011,<br>headShake:0.01<br>}                                                         | 否                                                  | <a href="#face-parameters-threshold" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                  |
+| before              | `function`             | `ALL`         |                                                                                                               | 否                                                  | 人脸框架执行前的前置函数，一但使用了before函数，则会覆盖框架自带的before函数， <br><a href="#face-parameters-before" style="color:blue; text-decoration:none; font-weight:bold;">查看前置函数调用方式</a> |  
+| action              | `function`             | `ALL`         |                                                                                                               | 否                                                  | 人脸动作函数，一但使用action函数，则会覆盖框架自带的action函数<br>  <a href="#face-parameters-action" style="color:blue; text-decoration:none; font-weight:bold;">查看动作函数调用方式</a>        |
+| faceStyle           | `Object`               | `ALL`         | null                                                                                                          | 否                                                  | 人脸样式网格样式，可以给人脸画一个网格线，单独给眼睛，鼻子，嘴巴轮廓单独上色  <br>  <a href="#face-parameters-face-style" style="color:blue; text-decoration:none; font-weight:bold;">查看参数示例</a>     |
+| callBack            | ` function`            | `ALL`         |                                                                                                               | <a style="color:red; text-decoration:none; ">是</a> | 当前是一个回调函数，会打印整个人脸运行的回调消息，可在当前方法进行后端的调用  <br><a href="#face-parameters-callBack" style="color:blue; text-decoration:none; font-weight:bold;">查看回调函数调用方法</a>     |
+| punchDistance       | ` Number`              | `人脸打卡`        | 20                                                                                                            | 否                                                  | 打卡距离，人脸正对摄像头的距离，默认20厘米                                                                                                                                         |
+| punchSuccessColor   | ` String`              | `人脸打卡`        | #00d6e1                                                                                                       | 否                                                  | 打卡验证成功后的外框颜色                                                                                                                                                   |
+| sleepEarThreshold   | ` Number`              | `睡眠检测`        | 0.2                                                                                                           | 否                                                  | 睡眠检测，当眼睛闭眼的阈值                                                                                                                                                  |
+| sleepTime           | ` Number`              | `睡眠检测`        | 2                                                                                                             | 否                                                  | 睡眠检测，单位秒，当闭眼多久则判断是在睡眠                                                                                                                                          |
+| sleepContinuousPush | ` Boolean`             | `睡眠检测`        | false                                                                                                         | 否                                                  | 当前检测到睡眠，是否持续推送消息，默认为false,只推送一次                                                                                                                                |
 
 
 
@@ -48,14 +48,6 @@
 | SLEEP | `String`  |        | 睡眠检测模式 |
 
 
-
-## <a id="face-parameters-loading"></a>loading 参数详细说明
-
-| 名称          | 类型        | 默认值        | 描述 |
-|-------------|-----------|------------|---------|
-| EYE | `String`  |        | 眼睛加载动画方式 |
-| MATRIX | `String` |        | 百叶窗加载动画方式 |
-| SEMICIRCLE | `String`  |        | 线条旋转加载动画方式 |
 
 ## <a id="face-parameters-threshold"></a>threshold 参数详细说明
 `当前对象，只针对于人脸登录模式`
@@ -213,44 +205,7 @@ effet.init({
 });
 ```
 
-## <a id="face-parameters-faceTemplate"></a> faceTemplate 参数详细
 
-| 名称          | 类型                 | 默认值            | 描述                                                                                                                                                        |
-|-------------|--------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| size | `FACE_SIZE`            | FACE_SIZE.MID  | 当前模板大小，一共3种类型<br><a href="#face-parameters-FACE_SIZE" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                            |
-| type | `FACE_TEMPLATE`       | FACE_TEMPLATE.FACE_RULE | 模板类型,每个领域有不同的模板，人脸登录，人脸打卡，睡眠检测都有各自的模板<br><a href="#face-parameters-FACE_TEMPLATE" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a> |
-| tips | `Boolean` | true           | 是否开启顶部的提示                                                                                                                                                 |
-
-
-## <a id="face-parameters-FACE_SIZE"></a> faceTemplate.size 参数解释
-
-| 名称          | 类型        | 默认值        | 描述  |
-|-------------|-----------|------------|-----|
-| MAX | `String`  |        | 最大  |
-| MID | `String` |        | 一般  |
-| MIN | `String`  |        | 最小  |
-
-
-## <a id="face-parameters-FACE_TEMPLATE"></a> faceTemplate.type 参数解释
-
-
-| 名称          | 类型        | 应用范围     | 效果描述                       |
-|-------------|-----------|----------|----------------------------|
-| FACE_RULE | `String`  | `人脸登录模式` | 效果一个圆圈带水波纹的效果，有顶部提示框，和半截提示 |
-
-`使用方式,在调用之前需要先使用主对象来调用，如：FACE_TYPE，FACE_SIZE，FACE_TEMPLATE来点下面的字段`
-
-```javascript
-  effet.init({
-        el: 'myface',
-        type:effet.FACE_TYPE.LOGIN,
-        faceTemplate:{
-            size:effet.FACE_SIZE.MID,
-            type:effet.FACE_TEMPLATE.FACE_RULE,
-            tips:false
-        }
-    });
-```
 
 ## <a id="face-parameters-callBack"></a> callBack 回调函数
 

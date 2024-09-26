@@ -1,0 +1,36 @@
+.spinnerFaceAdd {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.spinnerFaceAdd div {
+    position: absolute;
+    width: 3px;
+    background: #c3c1b4;
+    transition: background-color 0.1s ease;
+    border-radius: 5px;
+}
+.spinnerFaceAdd video,
+.spinnerFaceAdd canvas{
+    border-radius: 50%;
+}
+
+@keyframes moveDivFaceAdd {
+    0%, 100% {
+        transform: rotate(var(--rotation)) translate(0, var(--translation));
+    }
+    50% {
+        transform: rotate(var(--rotation)) translate(0, calc(var(--translation) * 1.2));
+    }
+}
+
+.moveFaceAdd {
+    animation: moveDivFaceAdd 0.5s ease!important;
+}
+
+.activeFaceAdd {
+    background-color: #89e07c!important; /* 激活时变成绿色 */
+}

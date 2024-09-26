@@ -1,4 +1,4 @@
-import { FACE_SIZE } from "@/enums/Constant.ts";
+import { FACE_SIZE } from "@/components/enums/Constant.ts";
 import {FaceManager} from '@/components/FaceManager.ts'
 const sizeConfigs = {
     [FACE_SIZE.MIN]: {
@@ -52,15 +52,10 @@ const sizeConfigs = {
 };
 
 export default (obj) => {
-    const config = sizeConfigs[obj.faceTemplate.size];
+    const config = sizeConfigs[obj.size];
     const parent = obj.parentElement;
     parent.style = `width: 100%; height: ${config.mainHeight}; min-width: ${config.mainMinWidth}; position: relative;`;
     const faceManager = FaceManager.getInstance();
-
-    const tipsHtml = obj.faceTemplate.tips ?
-        `<div class="face-effet-check-login-model-msg-faceRule-tips" style="width: ${config.tips_w}; top:${config.tips_t}; font-size: ${config.tips_f};">
-           
-        </div>` : '';
 
     parent.innerHTML = `
        <div class="face-effet-check-login-model-msg-faceRule-show" style="width: ${config.show_val}px; height: ${config.show_val}px;">
@@ -68,7 +63,8 @@ export default (obj) => {
             <canvas id="visio-login-canvas" style="z-index: 1;" width="${config.show_val}" height="${config.show_val}"></canvas>
        </div>
        <div class="face-effet-check-login-model-msg-faceRule-loader">
-           ${tipsHtml}
+           <div class="face-effet-check-login-model-msg-faceRule-tips" style="width: ${config.tips_w}; top:${config.tips_t}; font-size: ${config.tips_f};">
+           </div>
            <div class="face-effet-check-login-model-msg-fuji-faceRule" style="display: none; width: ${config.fuji_w}; margin-top: ${config.fuji_m_t};">
                <div class="face-effet-check-login-model-msg-faceRule" style="width: ${config.msg_w}; top:${config.msg_t};">
                    <div class="face-effet-check-login-model-msg-faceRule-content" style="margin-top: ${config.msg_d_t}; font-size: ${config.msg_d_f}; text-align: center;"></div>

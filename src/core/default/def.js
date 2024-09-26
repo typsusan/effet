@@ -1,4 +1,4 @@
-export default (obj = {}, FACE_TYPE = {}, FACE_LOADING = {}, FACE_SIZE = {}, FACE_TEMPLATE = {}) => {
+export default (obj = {}, FACE_TYPE = {},  FACE_SIZE = {}) => {
     // 默认参数
     obj.blur = typeof obj.blur === 'number' ? obj.blur : 8;
 
@@ -32,26 +32,14 @@ export default (obj = {}, FACE_TYPE = {}, FACE_LOADING = {}, FACE_SIZE = {}, FAC
 
     obj.type = Object.values(FACE_TYPE).includes(obj.type) ? obj.type : FACE_TYPE.LOGIN;
 
-    if (obj.faceTemplate) {
-        if (typeof obj.faceTemplate !== 'object') throw new Error('"faceTemplate" is not a valid object');
-        obj.faceTemplate.size = Object.values(FACE_SIZE).includes(obj.faceTemplate.size) ? obj.faceTemplate.size : FACE_SIZE.MID;
-        obj.faceTemplate.type = Object.values(FACE_TEMPLATE).includes(obj.faceTemplate.type) ? obj.faceTemplate.type : FACE_TEMPLATE.FACE_RULE;
-        obj.faceTemplate.tips = typeof obj.faceTemplate.tips === 'boolean' ? obj.faceTemplate.tips : true;
-    }
+    obj.size = Object.values(FACE_SIZE).includes(obj.size) ? obj.size : FACE_SIZE.MID;
 
-    if (obj.loading && !Object.values(FACE_LOADING).includes(obj.loading)) {
-        obj.loading = FACE_LOADING.MATRIX;
-    }
-
-    if (typeof obj.loadingColor === 'string') {
-        document.documentElement.style.setProperty('--face-effet-main-color', obj.loadingColor);
-    }
 
     // 人脸登录强制只检测当前人脸
-    if (obj.type === FACE_TYPE.LOGIN) {
+    if (obj.type === FACE_TYPE.LOGIN || obj.type === FACE_TYPE.ADD) {
         obj.face.maxNumFaces = 1;
     }
-
+    obj.appearance = typeof obj.appearance === 'boolean' ? obj.appearance : true
     obj.sleepContinuousPush = typeof obj.sleepContinuousPush === 'boolean' ? obj.sleepContinuousPush : false;
     obj.punchDistance = typeof obj.punchDistance === 'number' ? obj.punchDistance : 30;
     obj.punchSuccessColor = typeof obj.punchSuccessColor === 'string' ? obj.punchSuccessColor : '#00d6e1';

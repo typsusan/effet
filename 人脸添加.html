@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>VisioLogin Example</title>
-    <!-- 引入打包后的 JavaScript 文件 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="effet/effet.css">
-
-
     <script src="effet/index.js"></script>
     <script>
-        // 人脸登录，人脸打卡，睡眠检测
         document.addEventListener("DOMContentLoaded", function() {
             effet.init({
                 el: 'myface',
-                loading:effet.FACE_LOADING.SEMICIRCLE,
-                loadingColor:'red',
-                blur: 8,
+                type:'addFace',
                 callBack: (data) => {
                     console.log(data);
                 }
@@ -23,9 +18,9 @@
         });
     </script>
     <style>
-        #myface{
-            width: 100%;
-            height: 600px;
+        #myface {
+            width: 500px;
+            height: 500px;
             position: absolute;
             transform: translate(-50%,-50%);
             left: 50%;
@@ -42,11 +37,9 @@
 <button onclick="restartFace()">重新检测</button>
 
 <script>
-
     function restartFace(){
-        effet.restart();
+        effet.restart({blur:10});
     }
-
 </script>
 </body>
 </html>

@@ -4,20 +4,12 @@ import {Camera} from '@/util/cameraUtils.js'
 import imageUtils from "@/util/imageUtils";
 import {generateKey} from "@/util/getKey";
 import getImageReturnUtils from "@/util/getImageReturnUtils";
-
 import faceAction from "./action/faceAction";
 import faceBefore from "./before/faceBefore";
 import def from './default/def'
 import AppState from "@/components/AppState";
-
 import {cacheAllFiles, files, getFileFromIndexedDB} from "./db/db";
-
-import {FACE_LOADING, FACE_SIZE, FACE_TYPE,FACE_TEMPLATE} from "@/enums/Constant.ts";
-
-import LoadingManager from "../styles/loading/loading";
-
-
-let loadingManager = null;
+import {FACE_SIZE, FACE_TYPE} from "@/components/enums/Constant.ts";
 var appData = new AppState();
 let callBackObj = null;
 let startObj = null;
@@ -33,8 +25,6 @@ Object.defineProperty(appData, 'predictionState', {
 });
 
 function start(obj){
-    loadingManager = new LoadingManager(obj);
-    loadingManager.showLoading(obj.parentElement);
     startObj = obj;
     appData.parentElement = obj.parentElement
     appData.wholeProcessState = true
@@ -72,7 +62,7 @@ function restart(obj){
         if (typeof obj !== 'object'){
             throw new Error("Not a valid object");
         }
-        def(obj,FACE_TYPE,FACE_LOADING,FACE_SIZE,FACE_TEMPLATE)
+        def(obj,FACE_TYPE,FACE_SIZE)
         obj.callBack = startObj.callBack
         obj.parentElement = startObj.parentElement
         startObj = obj
@@ -148,9 +138,6 @@ async function startFaceMesh(obj) {
 
     const camera = new Camera(appData.videoElement, {
         onFrame: async () => {
-            if (loadingManager != null){
-                loadingManager.hideLoading();
-            }
             await faceMesh.send({ image: appData.videoElement });
         },
         width: 1280,
@@ -234,7 +221,7 @@ function stopRecording(obj) {
             // 如果没有进行录制，直接返回一个立即解决的 Promise
             return Promise.resolve([]);
         }
-    }else if (obj.type === FACE_TYPE.CLOCK_IN || obj.type === FACE_TYPE.SLEEP){
+    }else{
         getImageReturnUtils(appData,obj,callBackResult)
     }
 

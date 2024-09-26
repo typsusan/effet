@@ -1,9 +1,8 @@
 import { faceElements } from "./core/dom/createFaceElements.js";
 import { restart, start, close } from "./core/index";
 import def from './core/default/def.js';
-import { FACE_TYPE, FACE_LOADING, FACE_SIZE, FACE_TEMPLATE } from "@/enums/Constant.ts";
+import { FACE_TYPE, FACE_SIZE } from "@/components/enums/Constant.ts";
 import { cacheAllFiles } from "./core/db/db";
-import { $inform } from './styles/notification/notification';
 
 // 引入样式文件
 const requireStyles = require.context('./styles', true, /\.css$/);
@@ -16,7 +15,7 @@ export function init(obj) {
     }
 
     // 初始化基础设置
-    def(obj, FACE_TYPE, FACE_LOADING, FACE_SIZE, FACE_TEMPLATE);
+    def(obj, FACE_TYPE, FACE_SIZE);
     faceElements.init(obj);
 
     cacheAllFiles()
@@ -25,7 +24,7 @@ export function init(obj) {
         })
         .catch(error => {
             console.error('Caching files failed, falling back to CDN:', error);
-            start(obj); // 缓存失败时仍然启动
+            start(obj);
         });
 }
 
@@ -34,10 +33,7 @@ export {
     restart,
     close,
     FACE_TYPE,
-    FACE_LOADING,
-    $inform,
-    FACE_SIZE,
-    FACE_TEMPLATE
+    FACE_SIZE
 };
 
 export default {
@@ -45,8 +41,5 @@ export default {
     close,
     restart,
     FACE_TYPE,
-    FACE_LOADING,
-    $inform,
-    FACE_SIZE,
-    FACE_TEMPLATE
+    FACE_SIZE
 };
