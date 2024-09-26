@@ -41,8 +41,11 @@ export default (obj = {}, FACE_TYPE = {},  FACE_SIZE = {}) => {
     }
     obj.appearance = typeof obj.appearance === 'boolean' ? obj.appearance : true
     obj.sleepContinuousPush = typeof obj.sleepContinuousPush === 'boolean' ? obj.sleepContinuousPush : false;
-    obj.punchDistance = typeof obj.punchDistance === 'number' ? obj.punchDistance : 30;
+    obj.punchDistance = typeof obj.punchDistance === 'number' ? obj.punchDistance : 20;
     obj.punchSuccessColor = typeof obj.punchSuccessColor === 'string' ? obj.punchSuccessColor : '#00d6e1';
     obj.sleepEarThreshold = typeof obj.sleepEarThreshold === 'number' ? obj.sleepEarThreshold : 0.2;
     obj.sleepTime = typeof obj.sleepTime === 'number' ? obj.sleepTime : 2;
+
+
+    obj.addFaceDistance = typeof obj.addFaceDistance === 'number' ? obj.addFaceDistance : 20;
 };

@@ -13,6 +13,11 @@ export default class AppState {
     lastNoseX: number | null;
     noseXChanges: number[];
     parentElement: HTMLElement | null;
+    addFaceNoseXChanges: number[];
+    addFaceNoseYChanges: number[];
+    addFaceLastNoseX: number | null;
+    addFaceLastNoseY: number | null;
+    headDirectionResult: string | [];
 
     constructor() {
         this.mediaRecorder = null;
@@ -29,5 +34,10 @@ export default class AppState {
         this.lastNoseX = null;
         this.noseXChanges = [];
         this.parentElement = null;
+        this.addFaceNoseXChanges = [];
+        this.addFaceNoseYChanges = [];
+        this.addFaceLastNoseX = null;
+        this.addFaceLastNoseY = null;
+        this.headDirectionResult = [];
     }
 }

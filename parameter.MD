@@ -25,6 +25,8 @@
 | sleepEarThreshold   | ` Number`              | `睡眠检测`        | 0.2                                                                                                           | 否                                                  | 睡眠检测，当眼睛闭眼的阈值                                                                                                                                                  |
 | sleepTime           | ` Number`              | `睡眠检测`        | 2                                                                                                             | 否                                                  | 睡眠检测，单位秒，当闭眼多久则判断是在睡眠                                                                                                                                          |
 | sleepContinuousPush | ` Boolean`             | `睡眠检测`        | false                                                                                                         | 否                                                  | 当前检测到睡眠，是否持续推送消息，默认为false,只推送一次                                                                                                                                |
+| addFaceDistance       | ` Number`              | `人脸添加`        | 20                                                                                                            | 否                                                  | 人脸添加距离，人脸正对摄像头的距离，默认20厘米                                                                                                                                       |
+
 
 
 

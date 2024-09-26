@@ -75,8 +75,16 @@ export default (obj) => {
         });
     }
 
+    function destroy(){
+        const divs = document.querySelectorAll('.spinnerFaceAdd div');
+        divs.forEach(ele => {
+            ele.classList.remove('moveFaceAdd','activeFaceAdd')
+        })
+    }
+
     // 外部调用时直接返回animation方法
     return {
-        animation
+        animation,
+        destroy
     };
 };

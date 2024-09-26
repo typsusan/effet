@@ -2,13 +2,8 @@ import faceColor from "@/styles/faceColor";
 import addFace from "@/styles/template/addFace/default"
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
 const NOSE_Y_CHANGE_HISTORY_LENGTH = 10;
-const noseXChanges = [];
-const noseYChanges = [];
-let lastNoseX = null; // 初始化为 null
-let lastNoseY = null; // 初始化为 null
-let headDirectionResult = []
 
-export default (appData, results, currentObj) => {
+export default (appData,results,currentObj,callBackResult,stopRecording,startRecording) => {
     const landmarks = results.multiFaceLandmarks[0];
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
 
@@ -20,64 +15,62 @@ export default (appData, results, currentObj) => {
     let headDirection = null; // 'left', 'right', 'up', 'down' or null
 
     // 检测头部方向
-    if (lastNoseX !== null) {
-        const dx = noseTip.x - lastNoseX;
-        noseXChanges.push(Math.abs(dx));
+    if (appData.addFaceLastNoseX !== null) {
+        const dx = noseTip.x - appData.addFaceLastNoseX;
+        appData.addFaceNoseXChanges.push(Math.abs(dx));
 
-        if (noseXChanges.length > NOSE_X_CHANGE_HISTORY_LENGTH) {
-            noseXChanges.shift();
+        if (appData.addFaceNoseXChanges.length > NOSE_X_CHANGE_HISTORY_LENGTH) {
+            appData.addFaceNoseXChanges.shift();
         }
 
-        const maxChangeX = Math.max(...noseXChanges);
+        const maxChangeX = Math.max(...appData.addFaceNoseXChanges);
         if (maxChangeX > tiltThreshold) {
             headDirection = dx > 0 ? 'left' : 'right'; // 判定方向
         }
     }
 
-    if (lastNoseY !== null) {
-        const dy = noseTip.y - lastNoseY;
-        noseYChanges.push(Math.abs(dy));
+    if (appData.addFaceLastNoseY !== null) {
+        const dy = noseTip.y - appData.addFaceLastNoseY;
+        appData.addFaceNoseYChanges.push(Math.abs(dy));
 
-        if (noseYChanges.length > NOSE_Y_CHANGE_HISTORY_LENGTH) {
-            noseYChanges.shift();
+        if (appData.addFaceNoseYChanges.length > NOSE_Y_CHANGE_HISTORY_LENGTH) {
+            appData.addFaceNoseYChanges.shift();
         }
 
-        const maxChangeY = Math.max(...noseYChanges);
+        const maxChangeY = Math.max(...appData.addFaceNoseYChanges);
         if (maxChangeY > nodThreshold) {
             headDirection = dy > 0 ? 'up' : 'down'; // 判定方向
         }
     }
 
     // 检测中间状态
-    if (headDirection && Math.abs(noseTip.x - lastNoseX) < neutralThreshold && Math.abs(noseTip.y - lastNoseY) < neutralThreshold) {
+    if (headDirection && Math.abs(noseTip.x - appData.addFaceLastNoseX) < neutralThreshold && Math.abs(noseTip.y - appData.addFaceLastNoseY) < neutralThreshold) {
         headDirection = null; // 重置为中间状态
     }
 
-    lastNoseX = noseTip.x;
-    lastNoseY = noseTip.y;
-
+    appData.addFaceLastNoseX = noseTip.x;
+    appData.addFaceLastNoseY = noseTip.y;
 
     const meetsCriteria = checkIfMeetsCriteria(landmarks, currentObj);
 
-
     const addDirection = (direction) => {
-        headDirectionResult.push(direction);
-        if (headDirectionResult.length >= 4) {
-            console.log("4个方向完结");
+        appData.headDirectionResult.push(direction);
+        if (appData.headDirectionResult.length >= 4) {
+            callBackResult(currentObj, '全部方向检测通过');
+            stopRecording(currentObj);
         }
     }
 
     if (!meetsCriteria){
         appData.canvasElement.style.filter = `blur(${8}px)`
-        console.log("距离===================")
+        callBackResult(currentObj, '请距离屏幕近一点');
     }else {
         appData.canvasElement.style.filter = `blur(${0}px)`
         if (headDirection) {
-            if (headDirectionResult.findIndex(he => he === headDirection) !== -1){
+            if (appData.headDirectionResult.findIndex(he => he === headDirection) !== -1){
                 return;
             }
             addDirection(headDirection)
-            console.log(`头部方向检测通过，方向: ${headDirection}`);
             addFace(currentObj).animation(headDirection)
         }
     }
@@ -92,6 +85,6 @@ export default (appData, results, currentObj) => {
         }
         const headWidth = Math.abs(rightCheek.x - leftCheek.x) * canvasWidth;
         const distance = (canvasWidth * 0.5) / headWidth * 10;
-        return distance <= 20;
+        return distance <= currentObj.addFaceDistance;
     }
 };
