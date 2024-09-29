@@ -20,7 +20,7 @@ npm i face-effet
 如果你不想通过 npm 安装，可以使用以下方式通过 CDN 直接引入 `Effet.js`：
 
 ```html
-<script src="https://unpkg.com/face-effet@1.0.0/effet/effet.js"></script>
+<script src="https://unpkg.com/face-effet@1.0.2/effet/effet.js"></script>
 ```
 
 ## 文档
