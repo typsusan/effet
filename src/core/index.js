@@ -66,6 +66,7 @@ function restart(obj){
         def(obj,FACE_TYPE,FACE_SIZE)
         obj.callBack = startObj.callBack
         obj.parentElement = startObj.parentElement
+        obj.type = startObj.type
         startObj = obj
     }
     close();
@@ -73,7 +74,9 @@ function restart(obj){
     if (!startObj){
         throw new Error("Please complete the call to 'init' before invoking the restart task");
     }
-    addFaceTemplate(startObj).destroy()
+    if (startObj.type === FACE_TYPE.ADD){
+        addFaceTemplate(startObj).destroy()
+    }
     start(startObj)
 }
 
