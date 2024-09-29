@@ -34,12 +34,12 @@
 ## <a id="face-parameters"></a>face 参数详细说明
 `当前对象是基于FaceMesh.js 的二次封装，下面是effet.js 自带参数，可以传FaceMesh.js的参数体`
 
-| 名称          | 类型                 | 默认值         | 描述                                   |
-|-------------|--------------------|-------------|--------------------------------------|
-| maxNumFaces | `Number`            | 1           | 最大检测到的人脸数，如果选择的是**人脸登录**模式，则当前值强制为 1 |
-| refineLandmarks | `Boolean`       | true        | 是否精细化人脸特征点检测                         |
-| minDetectionConfidence | `Number` | 0.5         | 最小检测置信度                              |
-| minTrackingConfidence  | `Number` | 0.5         | 最小跟踪置信度                              |
+| 名称          | 类型                 | 默认值         | 描述                                                |
+|-------------|--------------------|-------------|---------------------------------------------------|
+| maxNumFaces | `Number`            | 1           | 最大检测到的人脸数，如果选择的是**人脸登录** 或者 **人脸添加** 模式，则当前值强制为 1 |
+| refineLandmarks | `Boolean`       | true        | 是否精细化人脸特征点检测                                      |
+| minDetectionConfidence | `Number` | 0.5         | 最小检测置信度                                           |
+| minTrackingConfidence  | `Number` | 0.5         | 最小跟踪置信度                                           |
 
 
 ## <a id="face-parameters-face-type"></a>type 参数详细说明
