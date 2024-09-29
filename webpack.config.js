@@ -8,7 +8,7 @@ module.exports = {
         index: './src/index.js',
     },
     output: {
-        filename: 'index.js',
+        filename: 'effet.js',
         path: path.resolve(__dirname, 'effet'),
         library: 'effet',
         libraryTarget: 'umd',

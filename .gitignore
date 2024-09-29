@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/effet
 
 yarn.lock
 package-lock.json
