@@ -40,6 +40,12 @@ export default (obj = {}, FACE_TYPE = {},  FACE_SIZE = {}) => {
         obj.face.maxNumFaces = 1;
     }
     obj.appearance = typeof obj.appearance === 'boolean' ? obj.appearance : true
+
+    // 睡眠检测，跟 人脸打卡目前没有样式
+    if (obj.type === FACE_TYPE.CLOCK_IN || obj.type === FACE_TYPE.SLEEP){
+        obj.appearance = false
+    }
+
     obj.sleepContinuousPush = typeof obj.sleepContinuousPush === 'boolean' ? obj.sleepContinuousPush : false;
     obj.punchDistance = typeof obj.punchDistance === 'number' ? obj.punchDistance : 20;
     obj.punchSuccessColor = typeof obj.punchSuccessColor === 'string' ? obj.punchSuccessColor : '#00d6e1';

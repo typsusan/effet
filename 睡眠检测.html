@@ -10,74 +10,10 @@
         document.addEventListener("DOMContentLoaded", function() {
             effet.init({
                 el: 'myface',
-                blur: 8,
-                dataRange: [1, 1.5, 2.1],
-                face: {
-                    maxNumFaces: 1,
-                    refineLandmarks: true,
-                    minDetectionConfidence: 0.5,
-                    minTrackingConfidence: 0.5
-                },
-                punchDistance:20,
-                punchSuccessColor:'#13ce66',
-                type:effet.FACE_TYPE.SLEEP,
+                type:'checkSleep',
                 sleepEarThreshold:0.2,
                 sleepTime:2,
-                sleepContinuousPush:false, // 是否持续推送，true持续推送，false 每次闭眼只推送一次 默认值 false
-                threshold:{
-                    lips:0.05,
-                    eye:0.011,
-                    headShake:0.01,
-                },
-                // action:(appData,results,currentObj,callBackResult, stopRecording,startRecording)=>{
-                //     const landmarks = results.multiFaceLandmarks[0];
-                //     // 获取面部关键点
-                //     const upperLipBottom = landmarks[13];
-                //     const lowerLipTop = landmarks[14];
-                //     const leftEyeTop = landmarks[159];
-                //     const leftEyeBottom = landmarks[145];
-                //     const rightEyeTop = landmarks[386];
-                //     const rightEyeBottom = landmarks[374];
-                //     const noseTip = landmarks[1]; // 鼻尖的标记点
-                //     result += noseTip.y;
-                //     if (result >= 200){
-                //         stopRecording(currentObj)
-                //     }
-                //     console.log(result)
-                // },
-                faceStyle: {
-                    // faceColor: {
-                    //     color:'#2cc1dc',
-                    //     line:1
-                    // },
-                    // rightEye:{
-                    //     color:'#297ae9',
-                    //     line:2,
-                    // },
-                    // rightEyebrow:{
-                    //
-                    // },
-                    // rightIris:{
-                    //     color: 'red',
-                    //     line:1
-                    // },
-                    // leftEye:{
-                    //
-                    // },
-                    // leftEyebrow:{
-                    //
-                    // },
-                    // leftIris:{
-                    //
-                    // },
-                    // oval:{
-                    //
-                    // },
-                    // lips:{
-                    //
-                    // }
-
-                },
+                sleepContinuousPush:false,
                 callBack: (data) => {
                     console.log(data);
                 }
@@ -86,14 +22,8 @@
     </script>
     <style>
         #myface{
-            width: 100%;
+            width: 500px;
             height: 600px;
-            position: absolute;
-            transform: translate(-50%,-50%);
-            left: 50%;
-            top: 50%;
-            overflow: hidden;
-            border: 1px red solid;
         }
     </style>
 </head>

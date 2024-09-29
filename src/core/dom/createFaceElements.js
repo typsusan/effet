@@ -13,9 +13,10 @@ const faceElements = {
         if (!el) throw new Error(`No element found for "${obj.el}"`);
         obj.parentElement = el;
         try {
+            const targetElement = obj.appearance ? obj : el;
             (obj.appearance
                 ? templateModule(`./${obj.type}/index.js`).default
-                : defaultElement)(el);
+                : defaultElement)(targetElement);
         } catch {
             throw new Error('No available template found');
         }

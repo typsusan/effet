@@ -59,9 +59,9 @@ export default (obj) => {
     if(obj.size === FACE_SIZE.MAX){
         size = 285;
     }else if (obj.size === FACE_SIZE.MID){
-        size = 270;
+        size = 235;
     }else {
-        size = 255;
+        size = 185;
     }
     createSpinnerFaceAdd(size, densityFactor);
 

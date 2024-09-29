@@ -11,6 +11,7 @@
             effet.init({
                 el: 'myface',
                 type:'addFace',
+                size:'max',
                 callBack: (data) => {
                     console.log(data);
                 }
@@ -18,15 +19,9 @@
         });
     </script>
     <style>
-        #myface {
+        #myface{
             width: 500px;
             height: 500px;
-            position: absolute;
-            transform: translate(-50%,-50%);
-            left: 50%;
-            top: 50%;
-            overflow: hidden;
-            border: 1px red solid;
         }
     </style>
 </head>

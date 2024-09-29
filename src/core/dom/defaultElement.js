@@ -13,15 +13,15 @@ export default (el) => {
         return element;
     };
 
-    const video = createElement('video', 'visio-login-video', {
+    createElement('video', 'visio-login-video', {
         display: 'none',
         zIndex: 1
     });
 
     const canvas = createElement('canvas', 'visio-login-canvas');
 
-    // 获取元素的尺寸
-    const { width, height } = el.getBoundingClientRect();
+    // 获取元素的尺寸，如果取不到高宽则设置默认值
+    const { width = 300, height = 150 } = el.getBoundingClientRect();
 
     // 设置画布尺寸
     Object.assign(canvas, { width, height });

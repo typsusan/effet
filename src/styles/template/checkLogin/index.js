@@ -54,7 +54,7 @@ const sizeConfigs = {
 export default (obj) => {
     const config = sizeConfigs[obj.size];
     const parent = obj.parentElement;
-    parent.style = `width: 100%; height: ${config.mainHeight}; min-width: ${config.mainMinWidth}; position: relative;`;
+    parent.style = `position: relative;`;
     const faceManager = FaceManager.getInstance();
 
     parent.innerHTML = `
