@@ -6,10 +6,12 @@ import {generateKey} from "@/util/getKey";
 import getImageReturnUtils from "@/util/getImageReturnUtils";
 import faceAction from "./action/faceAction";
 import faceBefore from "./before/faceBefore";
-import def from './default/def'
+import def from './defaultAssign/assign.js'
 import AppState from "@/components/AppState";
 import {cacheAllFiles, files, getFileFromIndexedDB} from "./db/db";
 import {FACE_SIZE, FACE_TYPE} from "@/components/enums/Constant.ts";
+import addFaceTemplate from "@/styles/template/addFace";
+
 var appData = new AppState();
 let callBackObj = null;
 let startObj = null;
@@ -55,7 +57,6 @@ function close() {
     });
 }
 
-
 function restart(obj){
     steps = 0
     if (obj){
@@ -72,6 +73,7 @@ function restart(obj){
     if (!startObj){
         throw new Error("Please complete the call to 'init' before invoking the restart task");
     }
+    addFaceTemplate(startObj).destroy()
     start(startObj)
 }
 

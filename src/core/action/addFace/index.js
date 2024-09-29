@@ -1,5 +1,6 @@
 import faceColor from "@/styles/faceColor";
-import addFace from "@/styles/template/addFace/default"
+import addFace from "@/styles/template/addFace"
+import checkIfMeetsUtils from "@/util/checkIfMeetsUtils";
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
 const NOSE_Y_CHANGE_HISTORY_LENGTH = 10;
 
@@ -51,7 +52,7 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
     appData.addFaceLastNoseX = noseTip.x;
     appData.addFaceLastNoseY = noseTip.y;
 
-    const meetsCriteria = checkIfMeetsCriteria(landmarks, currentObj);
+    const meetsCriteria = checkIfMeetsUtils(appData,landmarks, currentObj,'addFaceDistance');
 
     const addDirection = (direction) => {
         appData.headDirectionResult.push(direction);
@@ -73,18 +74,5 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
             addDirection(headDirection)
             addFace(currentObj).animation(headDirection)
         }
-    }
-
-    function checkIfMeetsCriteria(landmarks, currentObj) {
-        const canvasWidth = appData.canvasElement.width;
-        const leftCheek = landmarks[234];
-        const rightCheek = landmarks[454];
-        // 检查关键点是否存在
-        if (!leftCheek || !rightCheek) {
-            return false;
-        }
-        const headWidth = Math.abs(rightCheek.x - leftCheek.x) * canvasWidth;
-        const distance = (canvasWidth * 0.5) / headWidth * 10;
-        return distance <= currentObj.addFaceDistance;
     }
 };

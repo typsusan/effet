@@ -1,9 +1,9 @@
+import {FACE_SIZE} from "@/components/enums/Constant";
 let divHeight = 0;
 const directions = {};
-let size = 285;
 let densityFactor = 0.3;
 let spinnerFaceAddCreated = false; // 确保只创建一次
-
+let size = 285;
 export default (obj) => {
 
     function createSpinnerFaceAdd(size, densityFactor) {
@@ -56,7 +56,13 @@ export default (obj) => {
         return divs;
     }
 
-    // 初始化创建一次spinnerFaceAdd
+    if(obj.size === FACE_SIZE.MAX){
+        size = 285;
+    }else if (obj.size === FACE_SIZE.MID){
+        size = 270;
+    }else {
+        size = 255;
+    }
     createSpinnerFaceAdd(size, densityFactor);
 
     // 传入方向并触发对应方向的动画

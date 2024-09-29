@@ -1,9 +1,9 @@
 import faceColor from "@/styles/faceColor";
-
+import checkIfMeetsUtils from "@/util/checkIfMeetsUtils";
 export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
     results.multiFaceLandmarks.forEach((landmarks) => {
-        const meetsCriteria = checkIfMeetsCriteria(landmarks, currentObj);
+        const meetsCriteria = checkIfMeetsUtils(appData,landmarks, currentObj,'punchDistance');
 
         // 如果当前人脸不符合打卡标准，就直接跳过剩下的步骤
         if (!meetsCriteria) {
@@ -21,22 +21,6 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
         drawFaceBox(appData.canvasCtx, landmarks, currentObj);
 
     });
-
-    function checkIfMeetsCriteria(landmarks, currentObj) {
-        const canvasWidth = appData.canvasElement.width;
-
-        const leftCheek = landmarks[234];
-        const rightCheek = landmarks[454];
-
-        // 检查关键点是否存在
-        if (!leftCheek || !rightCheek) {
-            return false;
-        }
-
-        const headWidth = Math.abs(rightCheek.x - leftCheek.x) * canvasWidth;
-        const distance = (canvasWidth * 0.5) / headWidth * 10;
-        return distance <= currentObj.punchDistance;
-    }
 
     function drawFaceBox(ctx, landmarks, currentObj) {
         const leftCheek = landmarks[234];

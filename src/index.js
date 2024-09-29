@@ -1,6 +1,6 @@
 import { faceElements } from "./core/dom/createFaceElements.js";
 import { restart, start, close } from "./core/index";
-import def from './core/default/def.js';
+import def from './core/defaultAssign/assign.js';
 import { FACE_TYPE, FACE_SIZE } from "@/components/enums/Constant.ts";
 import { cacheAllFiles } from "./core/db/db";
 

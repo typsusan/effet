@@ -4,12 +4,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
 
-    devtool: 'source-map', // 启用source-map以帮助调试
-    stats: {
-        errorDetails: true, // 显示错误的详细信息
-        children: true, // 显示子模块的错误
-    },
-
     entry: {
         index: './src/index.js',
     },
