@@ -1,8 +1,5 @@
-import faceBase64 from "@/util/faceBase64.js";
 import {FaceMesh} from '@/util/faceMesh.js';
 import {Camera} from '@/util/cameraUtils.js'
-import imageUtils from "@/util/imageUtils";
-import {generateKey} from "@/util/getKey";
 import getImageReturnUtils from "@/util/getImageReturnUtils";
 import faceAction from "./action/faceAction";
 import faceBefore from "./before/faceBefore";
@@ -198,62 +195,11 @@ function startRecording() {
 
 
 function stopRecording(obj) {
-
     if (obj.type === FACE_TYPE.LOGIN){
         appData.canvasElement.style.filter = `blur(${obj.blur}px)`;
-        if (appData.mediaRecorder && appData.mediaRecorder.state !== "inactive") {
-            return new Promise((resolve) => {
-                appData.mediaRecorder.stop();
-                appData.mediaRecorder.onstop = async () => {
-                    const blob = new Blob(appData.recordedChunks, { type: "video/mp4" });
-                    const key = generateKey();
-                    if (obj.dataRange){
-                        const images = await captureFramesFromVideoBlob(blob, obj.dataRange);
-                        const resultsImages = await Promise.all(
-                            images.map(image => imageUtils(image, key))
-                        );
-                        appData.currentImages = resultsImages;
-                        callBackResult(obj, 'success', 10, resultsImages, faceBase64(blob), key);
-                        appData.wholeProcessState = false;
-                        resolve(resultsImages);
-                    }else {
-                        appData.wholeProcessState = false;
-                        getImageReturnUtils(appData,obj,callBackResult)
-                    }
-                };
-            });
-        } else {
-            // 如果没有进行录制，直接返回一个立即解决的 Promise
-            return Promise.resolve([]);
-        }
-    }else{
-        getImageReturnUtils(appData,obj,callBackResult)
+        appData.wholeProcessState = false;
     }
-
-}
-
-
-async function captureFramesFromVideoBlob(blob, times) {
-    const video = document.createElement('video');
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    const images = [];
-    video.src = URL.createObjectURL(blob);
-    await new Promise(resolve => video.addEventListener('loadeddata', resolve, { once: true }));
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    for (let time of times) {
-        await new Promise(resolve => {
-            video.currentTime = time;
-            video.addEventListener('seeked', () => {
-                context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-                let imageData = canvas.toDataURL('image/jpeg');
-                images.push(imageData);
-                resolve();
-            }, { once: true });
-        });
-    }
-    return images;
+    getImageReturnUtils(appData,obj,callBackResult)
 }
 
 

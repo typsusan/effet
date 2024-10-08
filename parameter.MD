@@ -11,7 +11,6 @@
 |---------------------|--------------------------|---------------|--------------------------------------------------------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | el                  | `String` \ `HTMLElement` | `ALL`         |                                                                                                              | <a style="color:red; text-decoration:none; ">是</a> | 主要face框架容器，可传入class,或者id，或者直接直接传一个元素                                                                                                                           |
 | blur                | `Number`                 | `人脸登录`        | 8                                                                                                            | 否                                                  | 针对于 **“人脸登录”** 模式 登录成功后，镜头的模糊度                                                                                                                                 |
-| dataRange           | `Array`                  | `人脸登录`        | [1, 1.5, 2.1]                                                                                                | 否                                                  | 针对于 **“人脸登录”** 模式，视频截取的第几秒                                                                                                                                     |
 | face                | `Object`                 | `ALL`         | {<br>maxNumFaces:1,<br>refineLandmarks:true,<br>minDetectionConfidence:0.5,<br>minTrackingConfidence:0.5<br>} | 否                                                  | <a href="#face-parameters" style="color:blue; text-decoration:none; font-weight:bold;">点击查看详细参数</a>                                                            |
 | type                | `String`                 | `ALL`         | checkLogin                                                                                               | 否                                                  | 不同类型，不同的人脸模式，可选类型：addFace（人脸添加），checkLogin（人脸登录），checkSleep（睡眠检测），clockIn（人脸打卡）                                                                                |
 | appearance          | `Boolean`                | `人脸登录` `人脸添加` | true                                                                                                         | 否                                                  | 当为false的时候，则不应用任何样式，睡眠检测，人脸打卡目前没有任何样式                                                                                                                          |
@@ -68,7 +67,6 @@
 effet.init({
     el: 'myface',
     blur: 8,
-    dataRange: [1, 1.5, 2.1],
     face: {
         maxNumFaces: 1,
         refineLandmarks: true,
@@ -107,7 +105,6 @@ let result = 0;
 effet.init({
         el: 'myface',
         blur: 8,
-        dataRange: [1, 1.5, 2.1],
         face: {
             maxNumFaces: 1,
             refineLandmarks: true,
@@ -154,7 +151,6 @@ effet.init({
  effet.init({
     el: 'myface',
     blur: 8,
-    dataRange: [1, 1.5, 2.1],
     face: {
         maxNumFaces: 1,
         refineLandmarks: true,
