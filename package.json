@@ -7,6 +7,14 @@
   "keywords": ["effet", "javascript", "framework", "ui", "animation","face-effet"],
   "author": "typsusan",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typsusan/effet.git"
+  },
+  "repository-gitee": {
+    "type": "git",
+    "url": "https://gitee.com/susantyp/effet.git"
+  },
   "scripts": {
     "build": "webpack"
   },
