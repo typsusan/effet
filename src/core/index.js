@@ -8,6 +8,7 @@ import AppState from "@/components/AppState";
 import {cacheAllFiles, files, getFileFromIndexedDB} from "./db/db";
 import {FACE_SIZE, FACE_TYPE} from "@/components/enums/Constant.ts";
 import addFaceTemplate from "@/styles/template/addFace";
+import cameraAccessUtils from "@/util/cameraAccessUtils";
 
 var appData = new AppState();
 let callBackObj = null;
@@ -31,11 +32,13 @@ function start(obj){
     appData.canvasElement = document.querySelector('#visio-login-canvas');
     appData.canvasElement.style.filter = `blur(${0}px)`
     appData.canvasCtx = appData.canvasElement.getContext('2d');
-    initVideoAndCanvas(obj).then(()=>{
-        callBackResult(obj,'开始绘制')
-    }).catch(error=>{
-        callBackResult(obj, '初始化失败', -1);
-    })
+    if (cameraAccessUtils()) {
+        initVideoAndCanvas(obj).then(()=>{
+            callBackResult(obj,'开始绘制')
+        }).catch(error=>{
+            callBackResult(obj, '初始化失败', -1);
+        })
+    }
 }
 
 function close() {
