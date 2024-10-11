@@ -110,7 +110,7 @@ async function startFaceMesh(obj) {
         console.warn('当前环境不支持IndexedDB，将使用默认的CDN模式');
         faceMesh = new FaceMesh({
             locateFile: file => {
-                return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+                return `${obj.cdnUrl}${file}`;
             },
         });
     } else {

@@ -39,9 +39,9 @@ const files = [
     'face_mesh_solution_simd_wasm_bin.wasm'
 ];
 
-async function cacheAllFiles() {
+async function cacheAllFiles(urls) {
     for (const file of files) {
-        const url = `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+        const url = `${urls}${file}`;
         await cacheFileToIndexedDB(url, file);
     }
 }

@@ -18,7 +18,7 @@ export function init(obj) {
     def(obj, FACE_TYPE, FACE_SIZE);
     faceElements.init(obj);
 
-    cacheAllFiles()
+    cacheAllFiles(obj.cdnUrl)
         .then(() => {
             start(obj);
         })
