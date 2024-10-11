@@ -52,8 +52,5 @@ export default (obj = {}, FACE_TYPE = {},  FACE_SIZE = {}) => {
     obj.sleepEarThreshold = typeof obj.sleepEarThreshold === 'number' ? obj.sleepEarThreshold : 0.2;
     obj.sleepTime = typeof obj.sleepTime === 'number' ? obj.sleepTime : 2;
 
-    // 默认读取cdn 插件缓存地址
-    obj.cdnUrl = typeof obj.cdnUrl === 'string' ? obj.cdnUrl : 'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/'
-
     obj.addFaceDistance = typeof obj.addFaceDistance === 'number' ? obj.addFaceDistance : 20;
 };

@@ -64,6 +64,8 @@ npm i face-effet
 │   │   │   │   ├── createFaceElements.js -创建人脸相关的 DOM 元素
 │   │   │   │   └── defaultElement.js ---默认元素配置
 │   │   │   └── index.js --------------核心模块的入口文件
+│   │   ├── resource -------------------- 资源文件，将所有资源文件转换为base64码存储在本地，放在cdn读取丢包的情况
+│   │   │   └── index.js --------------资源对象
 │   │   ├── styles --------------------样式文件
 │   │   │   ├── template
 │   │   │   │   ├── addFace -----------人脸添加的样式模板

@@ -1,14 +1,23 @@
-async function cacheFileToIndexedDB(url, fileName) {
+import resourceFile from '../../resource/index';
+import { Base64 } from 'js-base64';
+
+async function cacheFileToIndexedDB(fileName) {
     // 首先检查文件是否已经存在
     const existingFile = await getFileFromIndexedDB(fileName);
     if (existingFile) {
         return;
     }
+    const encodedBase64String = resourceFile[fileName];
+    const decodedData = Base64.toUint8Array(encodedBase64String);
+    // 确定 Blob 的 MIME 类型
+    let mimeType = "application/octet-stream";
 
-    // 如果不存在，则下载并缓存文件
-    const response = await fetch(url);
-    const blob = await response.blob();
-
+    if (fileName.endsWith(".wasm")) {
+        mimeType = "application/wasm"; // 设置 .wasm 的 MIME 类型
+    }else if (fileName.endsWith(".js")){
+        mimeType = "application/javascript";
+    }
+    let blob = new Blob([decodedData], { type: mimeType });
     const db = await openIndexedDB();
     const transaction = db.transaction('faceMeshFiles', 'readwrite');
     const store = transaction.objectStore('faceMeshFiles');
@@ -39,10 +48,9 @@ const files = [
     'face_mesh_solution_simd_wasm_bin.wasm'
 ];
 
-async function cacheAllFiles(urls) {
+async function cacheAllFiles() {
     for (const file of files) {
-        const url = `${urls}${file}`;
-        await cacheFileToIndexedDB(url, file);
+        await cacheFileToIndexedDB(file);
     }
 }
 

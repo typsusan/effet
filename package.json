@@ -1,10 +1,17 @@
 {
   "name": "face-effet",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "main": "index.js",
   "description": "effet.js 是一个轻量级的人脸样式框架，专注于为网页带来生动的面部动画效果。通过简单的API，开发者可以轻松实现眨眼、张嘴、摇头等动态表情，使用户界面更加互动和生动。effet.js 适用于需要增强用户体验的各种应用场景，特别是在前端项目中集成复杂的人脸动态效果。",
   "private": false,
-  "keywords": ["effet", "javascript", "framework", "ui", "animation","face-effet"],
+  "keywords": [
+    "effet",
+    "javascript",
+    "framework",
+    "ui",
+    "animation",
+    "face-effet"
+  ],
   "author": "typsusan",
   "license": "MIT",
   "repository": {
@@ -19,7 +26,11 @@
     "build": "webpack"
   },
   "files": [
-    "effet","README.md","parameter.md","package.json","License"
+    "effet",
+    "README.md",
+    "parameter.md",
+    "package.json",
+    "License"
   ],
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -36,5 +47,8 @@
     "typescript": "^5.5.4",
     "webpack": "^5.0.0",
     "webpack-cli": "^4.0.0"
+  },
+  "dependencies": {
+    "js-base64": "^3.7.7"
   }
 }
