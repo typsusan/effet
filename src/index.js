@@ -30,11 +30,10 @@ export function init(obj) {
     // 缓存完成后再启动
     cacheAllFiles()
         .then(() => {
-            console.log('Cache completed');
             start(obj);
         })
         .catch(error => {
-            console.error('Cache failed! Please check your network.', error);
+            console.error('Cache failed! Please check your network. The system is attempting to cache again for you.', error);
             // 即使缓存失败，也尝试启动
             start(obj);
         });

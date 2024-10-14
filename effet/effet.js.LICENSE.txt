@@ -1,0 +1,10 @@
+/*!
+ * Face-Effet.js
+ * Copyright(c) 2024 typsusan
+ * MIT Licensed : https://github.com/typsusan/effet/blob/master/License
+ *
+ * https://github.com/typsusan/effet
+ * https://gitee.com/susantyp/effet
+ */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
