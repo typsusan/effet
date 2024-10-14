@@ -189,7 +189,7 @@ function callBackResult(obj, message,step, base64Array = [], video = null,key = 
     callBackObj = {
         videoElement: appData.videoElement,
         canvasElement: appData.canvasElement,
-        progress_message: message,
+        progressMessage: message,
         parentElement:appData.parentElement,
         step: (typeof step === 'number' && step <= 0) ? step : steps,
         base64Array: base64Array,
