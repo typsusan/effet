@@ -52,5 +52,6 @@ export default (obj = {}, FACE_TYPE = {},  FACE_SIZE = {}) => {
     obj.sleepEarThreshold = typeof obj.sleepEarThreshold === 'number' ? obj.sleepEarThreshold : 0.2;
     obj.sleepTime = typeof obj.sleepTime === 'number' ? obj.sleepTime : 2;
 
+
     obj.addFaceDistance = typeof obj.addFaceDistance === 'number' ? obj.addFaceDistance : 20;
 };

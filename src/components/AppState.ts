@@ -8,7 +8,7 @@ export default class AppState {
     canvasCtx: CanvasRenderingContext2D | null;
     mouthOpen: boolean;
     blinked: boolean;
-    wholeProcessState:boolean;
+    wholeProcessState: boolean;
     blinkDetected: boolean;
     mouthDetected: boolean;
     lastNoseX: number | null;

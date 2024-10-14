@@ -9,8 +9,6 @@ import {cacheAllFiles, files, getFileFromIndexedDB} from "./db/db";
 import {FACE_SIZE, FACE_TYPE} from "@/components/enums/Constant.ts";
 import addFaceTemplate from "@/styles/template/addFace";
 import cameraAccessUtils from "@/util/cameraAccessUtils";
-import resourceFile from '../resource/index';
-import { Base64 } from 'js-base64';
 
 var appData = new AppState();
 let callBackObj = null;
@@ -109,23 +107,10 @@ async function startFaceMesh(obj) {
     let faceMesh;
     // 检查是否支持 IndexedDB
     if (!('indexedDB' in window)) {
-        console.warn('将采用时时读取的方式，过程比较耗时....');
+        console.warn('当前环境不支持IndexedDB，将使用默认的CDN模式');
         faceMesh = new FaceMesh({
             locateFile: file => {
-                const encodedBase64String = resourceFile[file];
-                const decodedData = Base64.toUint8Array(encodedBase64String);
-                let mimeType = "application/octet-stream";
-                if (file.endsWith(".wasm")) {
-                    mimeType = "application/wasm";
-                }else if (file.endsWith(".js")){
-                    mimeType = "application/javascript";
-                }
-                let blob = new Blob([decodedData], { type: mimeType });
-                if (blob) {
-                    return URL.createObjectURL(blob);
-                } else {
-                    throw new Error(`File not found in IndexedDB: ${file}`);
-                }
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
             },
         });
     } else {
