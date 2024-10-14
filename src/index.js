@@ -1,3 +1,12 @@
+/*!
+ * Face-Effet.js
+ * Copyright(c) 2024 typsusan
+ * MIT Licensed : https://github.com/typsusan/effet/blob/master/License
+ *
+ * https://github.com/typsusan/effet
+ * https://gitee.com/susantyp/effet
+ */
+
 import { faceElements } from "./core/dom/createFaceElements.js";
 import { restart, start, close } from "./core/index";
 import def from './core/defaultAssign/assign.js';
@@ -18,14 +27,25 @@ export function init(obj) {
     def(obj, FACE_TYPE, FACE_SIZE);
     faceElements.init(obj);
 
+    // 缓存完成后再启动
     cacheAllFiles()
         .then(() => {
+            console.log('Cache completed');
             start(obj);
         })
         .catch(error => {
-            console.error('Caching files failed, falling back to CDN:', error);
+            console.error('Cache failed! Please check your network.', error);
+            // 即使缓存失败，也尝试启动
             start(obj);
         });
+}
+
+export function cache() {
+    cacheAllFiles().then(() => {
+        console.log('Cache completed');
+    }).catch(error => {
+        console.error('Cache failed! Please check your network.', error);
+    });
 }
 
 // 导出模块
@@ -41,5 +61,6 @@ export default {
     close,
     restart,
     FACE_TYPE,
-    FACE_SIZE
+    FACE_SIZE,
+    cache
 };

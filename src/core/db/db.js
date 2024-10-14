@@ -42,10 +42,9 @@ const files = [
 async function cacheAllFiles() {
     // 并行缓存所有文件
     const promises = files.map(file => {
-        const url = `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+        const url = `https://unpkg.com/facemesh@0.6.6/${file}`;
         return cacheFileToIndexedDB(url, file);
     });
-
     // 等待所有请求完成
     await Promise.all(promises);
 }
