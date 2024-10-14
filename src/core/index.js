@@ -105,6 +105,7 @@ function initVideoAndCanvas(obj) {
 async function startFaceMesh(obj) {
     callBackResult(obj, '人脸开始检测');
     let faceMesh;
+
     // 检查是否支持 IndexedDB
     if (!('indexedDB' in window)) {
         console.warn('当前环境不支持IndexedDB，将使用默认的CDN模式');
@@ -114,33 +115,47 @@ async function startFaceMesh(obj) {
             },
         });
     } else {
-        // 获取 IndexedDB 中的文件
+        // 并行获取 IndexedDB 中的文件
         const fileBlobs = await Promise.all(files.map(file => getFileFromIndexedDB(file)));
 
-        if (fileBlobs.every(blob => blob instanceof Blob)) { // 确保每个文件都是 Blob 对象
+        if (fileBlobs.every(blob => blob instanceof Blob)) {
+            // 使用 IndexedDB 缓存的文件
             faceMesh = new FaceMesh({
                 locateFile: file => {
                     const blob = fileBlobs[files.indexOf(file)];
-                    if (blob) {
-                        return URL.createObjectURL(blob); // 确保传入的是 Blob 对象
-                    } else {
-                        throw new Error(`File not found in IndexedDB: ${file}`);
-                    }
+                    return URL.createObjectURL(blob); // 使用 Blob 对象创建 URL
                 },
             });
         } else {
-            console.error('One or more files are not Blob objects:', fileBlobs);
-            await cacheAllFiles();
-            // 重新调用 startFaceMesh 以确保使用缓存文件
-            return startFaceMesh(obj);
+            console.log('文件尚未完全缓存，正在并行缓存所有文件...');
+            await cacheAllFiles(); // 先并行缓存所有文件
+
+            // 再次获取文件并并行处理
+            const updatedFileBlobs = await Promise.all(files.map(file => getFileFromIndexedDB(file)));
+
+            if (updatedFileBlobs.every(blob => blob instanceof Blob)) {
+                faceMesh = new FaceMesh({
+                    locateFile: file => {
+                        const blob = updatedFileBlobs[files.indexOf(file)];
+                        return URL.createObjectURL(blob);
+                    },
+                });
+            } else {
+                console.error('文件缓存失败，无法继续初始化 faceMesh。');
+                return;
+            }
         }
     }
 
+    // 设置 faceMesh 的选项
     faceMesh.setOptions(obj.face);
     currentObj = obj;
+
+    // 设置应用程序相关的回调和处理逻辑
     faceBefore(appData, currentObj, callBackResult, stopRecording, startRecording);
     faceMesh.onResults(onResults);
 
+    // 初始化摄像头
     const camera = new Camera(appData.videoElement, {
         onFrame: async () => {
             await faceMesh.send({ image: appData.videoElement });
@@ -150,6 +165,7 @@ async function startFaceMesh(obj) {
     });
     camera.start();
 }
+
 
 function onResults(results){
     if (!appData.wholeProcessState){
