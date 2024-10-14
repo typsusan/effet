@@ -224,7 +224,7 @@ effet.init({
 |-------------|---------------|---------------------------------------------------|
 | videoElement | `HTMLElement` | 当前人脸video标签视频的元素                                  |
 | canvasElement | `HTMLElement` | 当前人脸canvas标签的元素                                   |
-| progress_message | `String`      | 正在进行哪一步的回调消息                                      |
+| progressMessage | `String`      | 正在进行哪一步的回调消息                                      |
 | parentElement | `HTMLElement` | 当前el元素，整个主体，最外层                                   |
 |step| `Number`      | 进行到了哪一步，返回数字类型                                    |
 |base64Array| `Array`       | 当前人脸图片                                            |
