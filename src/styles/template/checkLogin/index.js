@@ -57,7 +57,8 @@ export default (obj) => {
     parent.style = `position: relative;`;
     const faceManager = FaceManager.getInstance();
 
-    parent.innerHTML = `
+    if (!parent.querySelector('.face-effet-check-login-model-msg-faceRule-show')) {
+        parent.innerHTML = `
        <div class="face-effet-check-login-model-msg-faceRule-show" style="width: ${config.show_val}px; height: ${config.show_val}px;">
             <video id="visio-login-video" style="display: none; z-index: 1;" width="${config.show_val}" height="${config.show_val}"></video>
             <canvas id="visio-login-canvas" style="z-index: 1;" width="${config.show_val}" height="${config.show_val}"></canvas>
@@ -80,8 +81,9 @@ export default (obj) => {
            </figure>
        </div>
     `;
+        faceManager.faceComponents.push(parent)
+    }
 
-    faceManager.faceComponents.push(parent)
 
     let checkInterval = setInterval(() => {
         const canvas = document.getElementById('visio-login-canvas');

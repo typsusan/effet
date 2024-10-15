@@ -27,8 +27,8 @@ export default (obj = {}, FACE_TYPE = {},  FACE_SIZE = {}) => {
     obj.threshold = obj.threshold || { lips: 0.05, eye: 0.011, headShake: 0.01 };
     if (typeof obj.threshold !== 'object') throw new Error('"threshold" is not a valid object');
     obj.threshold.lips = typeof obj.threshold.lips === 'number' ? obj.threshold.lips : 0.05;
-    obj.threshold.eye = typeof obj.threshold.eye === 'number' ? obj.threshold.eye : 0.05;
-    obj.threshold.headShake = typeof obj.threshold.headShake === 'number' ? obj.threshold.headShake : 0.05;
+    obj.threshold.eye = typeof obj.threshold.eye === 'number' ? obj.threshold.eye : 0.011;
+    obj.threshold.headShake = typeof obj.threshold.headShake === 'number' ? obj.threshold.headShake : 0.01;
 
     obj.type = Object.values(FACE_TYPE).includes(obj.type) ? obj.type : FACE_TYPE.LOGIN;
 

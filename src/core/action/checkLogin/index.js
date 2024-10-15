@@ -1,14 +1,13 @@
-/**
- * 检测登录操作，如：眨眨眼，摇摇头，张张嘴，具体动作在当前逻辑里面调整
- * Detect login operations, such as blinking, shaking your head, and opening your mouth. The specific actions are adjusted in the current logic
- */
-import {distance} from "@/util/distanceUtils";
+import { distance } from "@/util/distanceUtils";
 import faceColor from "@/styles/faceColor";
-import {FaceManager} from '@/components/FaceManager.ts'
+import { FaceManager } from "@/components/FaceManager.ts";
+
 const NOSE_X_CHANGE_HISTORY_LENGTH = 10;
-export default (appData,results,currentObj,callBackResult,stopRecording,startRecording)=>{
+
+export default (appData, results, currentObj, callBackResult, stopRecording, startRecording) => {
     const landmarks = results.multiFaceLandmarks[0];
     faceColor(appData.canvasCtx, results.multiFaceLandmarks, currentObj);
+
     // 获取面部关键点
     const upperLipBottom = landmarks[13];
     const lowerLipTop = landmarks[14];
@@ -39,26 +38,58 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
     }
     appData.lastNoseX = noseTip.x;
 
-    // 依次检测动作
-    if (!appData.blinkDetected) {
-        if (blinked) {
-            appData.blinkDetected = true;
-            callBackResult(currentObj, '眨眼检测通过');
-        }
-    } else if (!appData.mouthDetected) {
-        callBackResult(currentObj, '请张张嘴');
-        FaceManager.getInstance().updateMessage(0, "请张张嘴");
-        if (mouthOpen) {
-            appData.mouthDetected = true;
-            callBackResult(currentObj, '张嘴检测通过');
-        }
-    } else if (!appData.headShakeDetected) {
-        callBackResult(currentObj, '请左右摇头');
-        FaceManager.getInstance().updateMessage(0, "请左右摇头");
-        if (headShaken) {
-            appData.headShakeDetected = true;
-            callBackResult(currentObj, '摇头检测通过');
-            stopRecording(currentObj);
-        }
+    // 初始化随机动作顺序
+    if (!appData.actionsSequence) {
+        appData.actionsSequence = ["blink", "mouth", "headShake"].sort(() => Math.random() - 0.5);
+        appData.currentActionIndex = 0;
+        appData.blinkDetected = false;
+        appData.mouthDetected = false;
+        appData.headShakeDetected = false;
     }
-}
+
+    const currentAction = appData.actionsSequence[appData.currentActionIndex];
+
+    switch (currentAction) {
+        case "blink":
+            if (!appData.blinkDetected) {
+                callBackResult(currentObj, "请眨眨眼");
+                FaceManager.getInstance().updateMessage(0, "请眨眨眼");
+                if (blinked) {
+                    appData.blinkDetected = true;
+                    callBackResult(currentObj, "眨眼检测通过");
+                    appData.currentActionIndex++;
+                }
+            }
+            break;
+
+        case "mouth":
+            if (!appData.mouthDetected) {
+                callBackResult(currentObj, "请张张嘴");
+                FaceManager.getInstance().updateMessage(0, "请张张嘴");
+                if (mouthOpen) {
+                    appData.mouthDetected = true;
+                    callBackResult(currentObj, "张嘴检测通过");
+                    appData.currentActionIndex++;
+                }
+            }
+            break;
+
+        case "headShake":
+            if (!appData.headShakeDetected) {
+                callBackResult(currentObj, "请左右摇头");
+                FaceManager.getInstance().updateMessage(0, "请左右摇头");
+                if (headShaken) {
+                    appData.headShakeDetected = true;
+                    callBackResult(currentObj, "摇头检测通过");
+                    appData.currentActionIndex++;
+                }
+            }
+            break;
+    }
+
+    // 检查所有动作是否完成
+    if (appData.blinkDetected && appData.mouthDetected && appData.headShakeDetected) {
+        FaceManager.getInstance().updateMessage(0, "通过");
+        stopRecording(currentObj);
+    }
+};

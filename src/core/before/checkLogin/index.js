@@ -1,6 +1,7 @@
 import {FaceManager} from '@/components/FaceManager.ts'
-
+/*
+* 前置操作
+* */
 export default (appData,currentObj,callBackResult,stopRecording,startRecording)=>{
-    callBackResult(currentObj,'请眨眨眼')
-    FaceManager.getInstance().updateMessage(0, "请眨眨眼");
+
 }

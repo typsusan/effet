@@ -16,7 +16,7 @@ export class FaceManager {
             const msgElement = this.faceComponents[index].querySelector('.face-effet-check-login-model-msg-faceRule-content');
             let tips = this.faceComponents[index].querySelector('.face-effet-check-login-model-msg-faceRule-tips');
             if (tips) {
-                tips.textContent = this.prefix + "," + message;
+                tips.textContent = message === '通过' ? '人脸核实'+ message : this.prefix + "," + message;
             }
             if (msgElement) {
                 msgElement.textContent = message;
