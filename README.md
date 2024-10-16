@@ -81,7 +81,6 @@ npm i face-effet
 │   │   │    ├── deviceUtil.js ---------设备相关的工具函数
 │   │   │    ├── distanceUtils.js ------距离计算工具
 │   │   │    ├── drawingUtils.js -------绘制相关的工具函数
-│   │   │    ├── faceBase64.js ---------人脸数据的 Base64 编码处理
 │   │   │    ├── faceMesh.js -----------人脸网格处理相关逻辑
 │   │   │    ├── getImageReturnUtils.js -处理图像返回的工具
 │   │   │    ├── getKey.js -------------获取键值的工具函数
