@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <script src="effet/effet.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            effet.init({
+                el: 'loginBody',
+                appearance: false, // 关闭原始样式
+                callBack: (data) => {
+                    console.log(data)
+                    // 4,6,8 代表正在验证阶段，具体可查看f12打印的日志
+                    if ([4, 6, 8].includes(data.step)) {
+                        document.getElementById('tips').innerText = data.progressMessage;
+                        document.getElementById(`step-item${data.step}`)?.classList.add('step-color-selected');
+                    }
+                    if (data.progressMessage === 'success'){
+                        Promise.all(data.base64Array).then((base64Strings) => {
+                            // 人脸数据，在这里可以调用你的后端接口
+                            let array = base64Strings;
+                            console.log(array)
+                        }).catch((error) => {
+                            console.error("Error resolving promises:", error);
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+        .login-body {
+            width: 300px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #999;
+        }
+        .currentImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            z-index: 1;
+        }
+        .step, .tips {
+            width: 100px;
+            height: 20px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            z-index: 1;
+        }
+        .tips {
+            bottom: 15%;
+            font-size: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .step {
+            bottom: 8%;
+        }
+        .step div {
+            float: left;
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+            border: 1px solid #999;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #999;
+        }
+        .step-color-selected {
+            border: 1px solid #fff !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+<div class="login-body" id="loginBody">
+    <img class="currentImg" src="outline.webp" alt="Background Image"/>
+    <div class="tips" id="tips">请左右摇头</div>
+    <div class="step">
+        <div id="step-item4">1</div>
+        <div id="step-item6">2</div>
+        <div id="step-item8">3</div>
+    </div>
+</div>
+</body>
+</html>

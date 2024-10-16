@@ -211,7 +211,7 @@ const utf8Encode = (string) => {
     return utftext;
 };
 
-const FACE_PREFIX = 'VISIO-LOGIN-'
+const FACE_PREFIX = 'EFFET-'
 
 const generateKey = () => {
     const browserInfo = getBrowserInfo();
