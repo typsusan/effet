@@ -94,7 +94,7 @@ async function initVideoAndCanvas(obj) {
 }
 
 async function startFaceMesh(obj) {
-    callBackResult(obj, '人脸开始检测');
+    callBackResult(obj, '人脸开始检测',1);
     let faceMesh;
 
     // 检查是否支持 IndexedDB
@@ -174,6 +174,9 @@ function callBackResult(obj, message,step, base64Array = [], video = null,key = 
     }
     if (appData.currentText ===  message){
         return;
+    }
+    if (step === 1){
+        steps = 0;
     }
     steps = steps === 0 ? 1 : ++ steps;
     appData.currentText = message
