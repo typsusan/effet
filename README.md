@@ -63,6 +63,8 @@ npm i face-effet
 │   │   │   ├── dom -------------------DOM 操作相关逻辑
 │   │   │   │   ├── createFaceElements.js -创建人脸相关的 DOM 元素
 │   │   │   │   └── defaultElement.js ---默认元素配置
+│   │   │   ├── log ---------屏蔽插件相关内警告
+│   │   │   │   └── log.js
 │   │   │   └── index.js --------------核心模块的入口文件
 │   │   ├── styles --------------------样式文件
 │   │   │   ├── template

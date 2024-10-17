@@ -12,6 +12,7 @@ import { restart, start, close } from "./core/index";
 import def from './core/defaultAssign/assign.js';
 import { FACE_TYPE, FACE_SIZE } from "@/components/enums/Constant.ts";
 import { cacheAllFiles } from "./core/db/db";
+import './core/log/log'
 
 // 引入样式文件
 const requireStyles = require.context('./styles', true, /\.css$/);

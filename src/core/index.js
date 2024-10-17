@@ -34,7 +34,6 @@ function start(obj){
     appData.canvasCtx = appData.canvasElement.getContext('2d');
     if (cameraAccessUtils()) {
         initVideoAndCanvas(obj).then(()=>{
-            callBackResult(obj,'开始绘制')
         }).catch(error=>{
             callBackResult(obj, '初始化失败', -1);
         })
@@ -80,26 +79,18 @@ function restart(obj){
     start(startObj)
 }
 
-function initVideoAndCanvas(obj) {
-    return navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            return new Promise((resolve, reject) => {
-                appData.videoElement.srcObject = stream;
-                appData.videoElement.onloadedmetadata = async () => {
-                    try {
-                        appData.videoElement.play();
-                        callBackResult(obj, '视频流已获取并播放', 1);
-                        await startFaceMesh(obj);
-                        resolve();
-                    } catch (error) {
-                        reject(error);
-                    }
-                };
-            });
-        })
-        .catch(error => {
-            throw error;
-        });
+async function initVideoAndCanvas(obj) {
+    try {
+        // 直接跳过视频流初始化，由 Camera 类去处理摄像头权限请求
+        appData.videoElement = document.querySelector('#visio-login-video');
+        appData.canvasElement = document.querySelector('#visio-login-canvas');
+        appData.canvasElement.style.filter = `blur(${0}px)`;
+        appData.canvasCtx = appData.canvasElement.getContext('2d');
+        await startFaceMesh(obj);
+    } catch (error) {
+        callBackResult(obj, '初始化失败', -1);
+        throw error;
+    }
 }
 
 async function startFaceMesh(obj) {

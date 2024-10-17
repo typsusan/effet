@@ -12,9 +12,10 @@
                 appearance: false, // 关闭原始样式
                 callBack: (data) => {
                     console.log(data)
-                    // 4,6,8 代表正在验证阶段，具体可查看f12打印的日志
-                    if ([4, 6, 8].includes(data.step)) {
-                        document.getElementById('tips').innerText = data.progressMessage;
+                    // 2, 4, 6 代表正在验证阶段，具体可查看f12打印的日志
+                    if ([2, 4, 6].includes(data.step)) {
+                        console.log(data.progressMessage)
+                        document.getElementById('tips').innerText = data.progressMessage === 'success' ? '正在验证人脸...' : data.progressMessage;
                         document.getElementById(`step-item${data.step}`)?.classList.add('step-color-selected');
                     }
                     if (data.progressMessage === 'success'){
@@ -86,9 +87,9 @@
     <img class="currentImg" src="outline.webp" alt="Background Image"/>
     <div class="tips" id="tips">请左右摇头</div>
     <div class="step">
-        <div id="step-item4">1</div>
-        <div id="step-item6">2</div>
-        <div id="step-item8">3</div>
+        <div id="step-item2">1</div>
+        <div id="step-item4">2</div>
+        <div id="step-item6">3</div>
     </div>
 </div>
 </body>
