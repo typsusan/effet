@@ -52,6 +52,11 @@ const sizeConfigs = {
 };
 
 export default (obj) => {
+
+    if (!obj.appearance){
+        return ;
+    }
+
     const config = sizeConfigs[obj.size];
     const parent = obj.parentElement;
     parent.style = `position: relative;`;

@@ -6,6 +6,11 @@ let spinnerFaceAddCreated = false; // 确保只创建一次
 let size = 285;
 
 export default (obj) => {
+
+    if (!obj.appearance){
+        return ;
+    }
+
     function createSpinnerFaceAdd(size, densityFactor) {
         if (spinnerFaceAddCreated) return; // 已创建则直接返回
 
