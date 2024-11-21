@@ -16,10 +16,8 @@ export default (obj) => {
 
     parent.style.position = 'relative';
 
-    if (!parent.querySelector('.face-effet-check-login-model-msg-faceRule-show')) {
-        parent.innerHTML = generateHTML(config);
-        faceManager.faceComponents.push(parent);
-    }
+    parent.innerHTML = generateHTML(config);
+    faceManager.faceComponents = [parent];
 
     const canvas = document.getElementById('visio-login-canvas');
     const checkInterval = setInterval(() => {
