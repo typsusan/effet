@@ -11,7 +11,7 @@ export default (obj) => {
     }
 
     function createSpinnerFaceAdd(size, densityFactor) {
-        if (!document.querySelector('#spinnerFaceAdd')) return; // 已创建则直接返回
+        if (document.querySelector('#spinnerFaceAdd')) return; // 已创建则直接返回
 
         const parent = obj.parentElement;
 
