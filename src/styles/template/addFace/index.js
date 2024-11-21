@@ -2,7 +2,6 @@ import { FACE_SIZE } from "@/components/enums/Constant";
 let divHeight = 0;
 const directions = {};
 let densityFactor = 0.3;
-let spinnerFaceAddCreated = false; // 确保只创建一次
 let size = 285;
 
 export default (obj) => {
@@ -12,7 +11,7 @@ export default (obj) => {
     }
 
     function createSpinnerFaceAdd(size, densityFactor) {
-        if (spinnerFaceAddCreated) return; // 已创建则直接返回
+        if (!document.querySelector('#spinnerFaceAdd')) return; // 已创建则直接返回
 
         const parent = obj.parentElement;
 
