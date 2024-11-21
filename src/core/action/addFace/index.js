@@ -62,10 +62,66 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
         }
     }
 
-    if (!meetsCriteria){
-        appData.canvasElement.style.filter = `blur(${8}px)`
-        callBackResult(currentObj, '请距离屏幕近一点');
-    }else {
+
+    // 确保 foregroundCanvas 存在
+    let foregroundCanvas = document.getElementById('foregroundCanvas');
+
+    if (!foregroundCanvas) {
+        // 如果不存在，则动态创建
+        foregroundCanvas = document.createElement('canvas');
+        foregroundCanvas.id = 'foregroundCanvas';
+        foregroundCanvas.width = appData.canvasElement.width;
+        foregroundCanvas.height = appData.canvasElement.height;
+
+        // 设置样式使其居中并叠加在背景 canvas 上
+        foregroundCanvas.style.position = 'absolute';
+        foregroundCanvas.style.top = '50%';
+        foregroundCanvas.style.left = '50%';
+        foregroundCanvas.style.transform = 'translate(-50%, -50%)'; // 居中
+        foregroundCanvas.style.zIndex = '2'; // 设置 z-index
+        foregroundCanvas.style.pointerEvents = 'none'; // 禁止用户交互
+
+        // 添加到背景 canvas 的父元素
+        appData.canvasElement.parentNode.appendChild(foregroundCanvas);
+    }
+
+    const ctx = appData.canvasCtx; // 背景 canvas 的上下文
+    const foregroundCtx = foregroundCanvas.getContext('2d'); // 前景 canvas 的上下文
+
+    // 1. 清空背景 canvas 并绘制摄像头画面
+    ctx.clearRect(0, 0, appData.canvasElement.width, appData.canvasElement.height);
+    ctx.drawImage(results.image, 0, 0, appData.canvasElement.width, appData.canvasElement.height);
+
+    // 应用模糊到背景
+    appData.canvasElement.style.filter = `blur(${8}px)`;
+
+    // 2. 清空前景 canvas 并绘制清晰文字
+    foregroundCtx.clearRect(0, 0, foregroundCanvas.width, foregroundCanvas.height);
+
+    const allDirections = ['left', 'right', 'up', 'down'];
+
+    if (!meetsCriteria) {
+        sendTips('请距离屏幕近一点');
+    } else {
+        const remainingDirections = allDirections.filter(direction => !appData.headDirectionResult.includes(direction));
+
+        if (remainingDirections.length === 4) {
+            sendTips('请上下左右转头');
+        } else if (remainingDirections.length > 0) {
+            const directionMap = {
+                left: '右边',
+                right: '左边',
+                up: '下方',
+                down: '上方'
+            };
+
+            // 使用映射替换方向名称
+            const text = remainingDirections.map(direction => directionMap[direction]).join('、');
+            sendTips(`请向 ${text} 转向`);
+        } else {
+            sendTips('');
+        }
+
         appData.canvasElement.style.filter = `blur(${0}px)`
         if (headDirection) {
             if (appData.headDirectionResult.findIndex(he => he === headDirection) !== -1){
@@ -74,5 +130,16 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
             addDirection(headDirection)
             addFace(currentObj).animation(headDirection)
         }
+    }
+
+    function sendTips(text){
+        foregroundCtx.font = '18px Arial';
+        foregroundCtx.fillStyle = '#00d6e1';
+        foregroundCtx.textAlign = 'center';
+        foregroundCtx.fillText(
+            text,
+            foregroundCanvas.width / 2,
+            foregroundCanvas.height / 2
+        );
     }
 };
