@@ -19,6 +19,7 @@ export default class AppState {
     addFaceLastNoseX: number | null;
     addFaceLastNoseY: number | null;
     headDirectionResult: string | [];
+    currentText : string;
 
     constructor() {
         this.mediaRecorder = null;
@@ -40,5 +41,6 @@ export default class AppState {
         this.addFaceLastNoseX = null;
         this.addFaceLastNoseY = null;
         this.headDirectionResult = [];
+        this.currentText = "";
     }
 }

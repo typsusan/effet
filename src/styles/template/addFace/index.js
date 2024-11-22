@@ -10,6 +10,14 @@ export default (obj) => {
         return ;
     }
 
+    if (obj.size === FACE_SIZE.MAX) {
+        size = 285;
+    } else if (obj.size === FACE_SIZE.MID) {
+        size = 235;
+    } else {
+        size = 185;
+    }
+
     function createSpinnerFaceAdd(size, densityFactor) {
         if (document.querySelector('#spinnerFaceAdd')) return; // 已创建则直接返回
 
@@ -75,13 +83,6 @@ export default (obj) => {
         return divs;
     }
 
-    if (obj.size === FACE_SIZE.MAX) {
-        size = 285;
-    } else if (obj.size === FACE_SIZE.MID) {
-        size = 235;
-    } else {
-        size = 185;
-    }
     createSpinnerFaceAdd(size, densityFactor);
 
     // 传入方向并触发对应方向的动画
@@ -106,6 +107,8 @@ export default (obj) => {
         const divs = document.querySelectorAll('.spinnerFaceAdd div');
         divs.forEach((ele) => {
             ele.classList.remove('moveFaceAdd', 'activeFaceAdd');
+            const radius = size / 2
+            ele.style.height = `${radius / 8}px`;
         });
     }
 
