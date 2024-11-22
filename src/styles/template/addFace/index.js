@@ -59,8 +59,6 @@ export default (obj) => {
         directions.right = getDivsByAngleRange(45, 135, numberOfDivs); // 右
         directions.down = getDivsByAngleRange(135, 225, numberOfDivs); // 下
         directions.left = getDivsByAngleRange(225, 315, numberOfDivs); // 左
-
-        spinnerFaceAddCreated = true; // 标记为已创建
     }
 
     function getDivsByAngleRange(startAngle, endAngle, totalDivs) {
