@@ -195,17 +195,38 @@ function callBackResult(obj, message,step, base64Array = [], video = null,key = 
 }
 
 function startRecording() {
-    const options = { mimeType: "video/webm; codecs=vp9" };
-    if (!appData.mediaRecorder || appData.mediaRecorder.state === "inactive") {
-        appData.mediaRecorder = new MediaRecorder(appData.videoElement.srcObject, options);
-        appData.mediaRecorder.ondataavailable = (event) => {
-            if (event.data.size > 0) {
-                appData.recordedChunks.push(event.data);
-            }
-        };
-        appData.mediaRecorder.start();
+    let mimeType = ""; // 初始化 mimeType
+
+    // 动态检测支持的 mimeType
+    if (MediaRecorder.isTypeSupported("video/webm; codecs=vp9")) {
+        mimeType = "video/webm; codecs=vp9";
+    } else if (MediaRecorder.isTypeSupported("video/webm; codecs=vp8")) {
+        mimeType = "video/webm; codecs=vp8";
+    } else if (MediaRecorder.isTypeSupported("video/mp4")) {
+        mimeType = "video/mp4"; // iOS 上有时支持 mp4
+    } else {
+        console.warn("当前浏览器不支持指定的 mimeType，使用默认配置。");
+        mimeType = ""; // 不传 mimeType，使用浏览器的默认值
+    }
+    const options = mimeType ? { mimeType } : undefined;
+    try {
+        // 创建 MediaRecorder
+        if (!appData.mediaRecorder || appData.mediaRecorder.state === "inactive") {
+            appData.mediaRecorder = new MediaRecorder(appData.videoElement.srcObject, options);
+            // 处理录制的数据
+            appData.mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    appData.recordedChunks.push(event.data);
+                }
+            };
+            // 启动录制
+            appData.mediaRecorder.start();
+        }
+    } catch (error) {
+        console.error("无法启动录制:", error);
     }
 }
+
 
 
 function stopRecording(obj,featurePoints) {
