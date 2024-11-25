@@ -13,7 +13,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
             return;
         }else {
             if (appData.currentText !== 'success'){
-                stopRecording(currentObj);
+                stopRecording(currentObj,results.multiFaceLandmarks[0]);
             }
         }
 

@@ -58,7 +58,7 @@ export default (appData,results,currentObj,callBackResult,stopRecording,startRec
         appData.headDirectionResult.push(direction);
         if (appData.headDirectionResult.length >= 4) {
             callBackResult(currentObj, '全部方向检测通过');
-            stopRecording(currentObj);
+            stopRecording(currentObj,results.multiFaceLandmarks[0]);
         }
     }
 

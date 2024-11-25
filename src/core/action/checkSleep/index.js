@@ -38,7 +38,7 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
                 // 检查闭眼持续时间是否超过阈值
                 const elapsedTime = Date.now() - sleepStartTime;
                 if (elapsedTime >= (currentObj.sleepTime * 1000)) {
-                    stopRecording(currentObj)
+                    stopRecording(currentObj,results.multiFaceLandmarks[0])
                 }
             }
             // 闭眼时重置wakeStartTime

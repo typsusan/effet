@@ -167,7 +167,7 @@ function onResults(results){
 
 let steps = 0;
 
-function callBackResult(obj, message,step, base64Array = [], video = null,key = '') {
+function callBackResult(obj, message,step, base64Array = [], video = null,key = '',features) {
     if (!obj || typeof obj.callBack !== 'function') {
         console.error('Invalid callback object or function:', obj);
         return;
@@ -189,6 +189,7 @@ function callBackResult(obj, message,step, base64Array = [], video = null,key = 
         base64Array: base64Array,
         video: video,
         secretKey:key,
+        features:features
     };
     obj.callBack(callBackObj);
 }
@@ -207,12 +208,12 @@ function startRecording() {
 }
 
 
-function stopRecording(obj) {
+function stopRecording(obj,featurePoints) {
     if (obj.type === FACE_TYPE.LOGIN){
         appData.canvasElement.style.filter = `blur(${obj.blur}px)`;
         appData.wholeProcessState = false;
     }
-    getImageReturnUtils(appData,obj,callBackResult)
+    getImageReturnUtils(appData,obj,callBackResult,featurePoints)
 }
 
 

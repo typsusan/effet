@@ -90,6 +90,6 @@ export default (appData, results, currentObj, callBackResult, stopRecording, sta
     // 检查所有动作是否完成
     if (appData.blinkDetected && appData.mouthDetected && appData.headShakeDetected) {
         FaceManager.getInstance().updateMessage(0, "通过");
-        stopRecording(currentObj);
+        stopRecording(currentObj,results.multiFaceLandmarks[0]);
     }
 };
