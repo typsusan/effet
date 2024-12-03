@@ -49,11 +49,15 @@ function close() {
     // 清除画布
     appData.canvasCtx?.clearRect(0, 0, appData.canvasElement?.width || 0, appData.canvasElement?.height || 0);
     // 重置应用状态
-    Object.assign(appData, {
-        wholeProcessState: false,
-        currentText: '',
-        recordedChunks: []
-    });
+    appData = new AppState();
+    if (!startObj){
+        throw new Error("Complete the call to 'init' before invoking the close task");
+    }else {
+        def(startObj,FACE_TYPE,FACE_SIZE)
+    }
+    if (startObj.type === FACE_TYPE.ADD){
+        addFaceTemplate(startObj).destroy()
+    }
 }
 
 function restart(obj){
